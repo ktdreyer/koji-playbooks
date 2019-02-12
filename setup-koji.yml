@@ -1,0 +1,10 @@
+- name: manage Koji VM
+  hosts: kojidev
+  remote_user: cloud-user
+  become: yes
+  become_method: sudo
+  gather_facts: false
+  roles:
+   - kdc
+   - koji-hub
+   - koji-builder

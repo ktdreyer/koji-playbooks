@@ -1,0 +1,168 @@
+- selinux:
+    policy: targeted
+    state: permissive
+
+- name: Install Koji packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - postgresql-server
+    - python-psycopg2
+    - koji-hub
+    - mod_ssl
+    - mod_auth_gssapi
+    - koji
+
+- name: initialize postgresql
+  command: postgresql-setup initdb
+  args:
+    creates: /var/lib/pgsql/data/pg_hba.conf
+
+- name: configure pg_hba.conf
+  copy:
+    dest: /var/lib/pgsql/data/pg_hba.conf
+    content: |
+      host    koji      koji     127.0.0.1/32      trust
+      host    koji      koji     ::1/128           trust
+      local   all       koji                       peer
+      host    all       postgres 127.0.0.1/32      trust
+      host    all       postgres ::1/128           trust
+      local   all       postgres                   peer
+
+- lineinfile:
+    dest: /var/lib/pgsql/data/postgresql.conf
+    regexp: '^#listen_addresses'
+    line: "listen_addresses = '*'"
+
+- name: restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+
+- name: create koji user
+  user:
+    name: koji
+    shell: /bin/bash
+
+- postgresql_user:
+    name: koji
+    password: test
+    #priv: "CONNECT/koji:ALL"
+    #login_unix_socket: /var/run/postgresql
+  become_user: postgres
+
+- postgresql_db:
+    name: koji
+    owner: koji
+    #login_unix_socket: /var/run/postgresql
+  become_user: postgres
+
+- name: check if database for app needs populating
+  command: psql -t koji -c "SELECT COUNT(*) FROM permissions;"
+  become_user: postgres
+  register: database_is_populated
+  ignore_errors: true
+  changed_when: "database_is_populated.rc != 0"
+
+- name: populate the koji database
+  shell: psql koji koji < /usr/share/doc/koji*/docs/schema.sql
+  args:
+    executable: /bin/bash
+  when: "database_is_populated.rc == 1"
+  become: yes
+  become_user: koji
+
+- name: insert kdreyer as a user
+  shell: psql -c "insert into users (name, status, usertype) values ('kdreyer', 0, 0);"
+  become: yes
+  become_user: koji
+  when: "database_is_populated.rc == 1"
+
+- name: grant kdreyer admin rights
+  shell: psql -c "insert into user_perms (user_id, perm_id, creator_id) values (1, 1, 1);"
+  when: "database_is_populated.rc == 1"
+  become: yes
+  become_user: koji
+
+- name: /etc/pki/koji directory
+  file:
+    path: /etc/pki/koji
+    state: directory
+    mode: 0755
+
+- name: copy koji root CA
+  copy:
+    src: /home/kdreyer/.koji/pki/koji-ca.crt
+    dest: /etc/pki/koji/koji-ca.crt
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy Red Hat CA chain file
+  copy:
+    src: files/kojidev.example.com.chain.crt
+    dest: /etc/pki/koji/kojidev.example.com.chain.crt
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy kojidev.example.com public cert
+  copy:
+    src: files/kojidev.example.com.crt
+    dest: /etc/pki/koji/kojidev.example.com.crt
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy kojidev.example.com private key
+  copy:
+    src: files/kojidev.example.com.key
+    dest: /etc/pki/koji/kojidev.example.com.key
+    owner: root
+    group: root
+    mode: 0600
+
+- name: copy mod_ssl config
+  copy:
+    src: files/ssl.conf
+    dest: /etc/httpd/conf.d/ssl.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy /etc/httpd/conf.d/kojihub.conf
+  copy:
+    src: files/kojihub.conf
+    dest: /etc/httpd/conf.d/kojihub.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy /etc/koji-hub/hub.conf
+  copy:
+    src: files/hub.conf
+    dest: /etc/koji-hub/hub.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: restart httpd
+  service:
+    name: httpd
+    enabled: true
+    state: restarted
+
+- name: /mnt/koji directories
+  file:
+    path: /mnt/koji/{{ item }}
+    state: directory
+    mode: 0755
+    owner: apache
+    group: apache
+  with_items:
+    - packages
+    - repos
+    - work
+    - scratch
+    - repos-dist

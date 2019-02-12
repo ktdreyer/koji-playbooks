@@ -1,0 +1,18 @@
+- name: check if {{ principal }} account exists
+  command: /usr/sbin/kadmin.local -q "getprinc {{ principal }}"
+  register: account_exists
+  tags:
+   - krb_account
+
+- name: create {{ principal }} account
+  command: /usr/sbin/kadmin.local -q "addprinc -randkey {{ principal }}"
+  when: account_exists.stderr is search("Principal does not exist")
+  tags:
+   - krb_account
+
+- name: create /var/local/{{ principal | replace ('/', '.') }}.keytab
+  command: /usr/sbin/kadmin.local -q "ktadd -k /var/local/{{ principal | replace ('/', '.') }}.keytab {{ principal }}"
+  args:
+    creates: "/var/local/{{ principal | replace ('/', '.') }}.keytab"
+  tags:
+   - krb_account
