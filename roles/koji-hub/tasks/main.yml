@@ -94,7 +94,7 @@
 
 - name: copy koji root CA
   copy:
-    src: /home/kdreyer/.koji/pki/koji-ca.crt
+    src: files/koji-ca.crt
     dest: /etc/pki/koji/koji-ca.crt
     owner: root
     group: root
