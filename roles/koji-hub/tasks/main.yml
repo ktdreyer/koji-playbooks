@@ -163,6 +163,7 @@
     owner: apache
     group: apache
   with_items:
+    -
     - packages
     - repos
     - work
