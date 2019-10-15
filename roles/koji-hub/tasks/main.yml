@@ -101,7 +101,7 @@
     group: root
     mode: 0644
 
-- name: copy Red Hat CA chain file
+- name: copy CA chain file
   copy:
     src: files/kojidev.example.com.chain.crt
     dest: /etc/pki/koji/kojidev.example.com.chain.crt
