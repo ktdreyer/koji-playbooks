@@ -18,3 +18,15 @@
     name: kojid
     enabled: true
     state: started
+
+# Because we have "topurl=https://..." in kojid.conf, we must trust this CA
+# system-wide because we query this URL with urllib2.
+
+- name: link our Koji CA to the system-wide location
+  file:
+    src: /etc/pki/koji/koji-ca.crt
+    dest: /etc/pki/ca-trust/source/anchors/koji-ca.crt
+    state: link
+
+- name: trust our new Koji CA system-wide
+  command: update-ca-trust extract
