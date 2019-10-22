@@ -25,7 +25,7 @@ things are currently hard-coded:
 
 * This playbook does not generate any new SSL certificates. It assumes you
   already have an SSL CA and key pair. The `koji-ssl-admin tool
-  <https://pagure.io/koji-tools/blob/master/f/src/bin/koji-ssl-admin>` can
+  <https://pagure.io/koji-tools/blob/master/f/src/bin/koji-ssl-admin>`_ can
   help with this.
 
   * roles/koji-hub/files/kojidev.example.com.chain.crt
