@@ -28,10 +28,10 @@ things are currently hard-coded:
   <https://pagure.io/koji-tools/blob/master/f/src/bin/koji-ssl-admin>`_ can
   help with this.
 
-  * roles/koji-hub/files/kojidev.example.com.chain.crt
-  * roles/koji-hub/files/kojidev.example.com.crt
-  * roles/koji-hub/files/kojidev.example.com.csr
-  * roles/koji-hub/files/kojidev.example.com.key
+  * ``roles/koji-hub/files/kojidev.example.com.chain.crt``
+  * ``roles/koji-hub/files/kojidev.example.com.crt``
+  * ``roles/koji-hub/files/kojidev.example.com.csr``
+  * ``roles/koji-hub/files/kojidev.example.com.key``
 
 
 Roles
