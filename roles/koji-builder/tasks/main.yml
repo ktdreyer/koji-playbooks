@@ -13,12 +13,6 @@
     group: root
     mode: 0644
 
-- name: restart kojid
-  service:
-    name: kojid
-    enabled: true
-    state: started
-
 # Because we have "topurl=https://..." in kojid.conf, we must trust this CA
 # system-wide because we query this URL with urllib2.
 
@@ -30,3 +24,9 @@
 
 - name: trust our new Koji CA system-wide
   command: update-ca-trust extract
+
+- name: restart kojid
+  service:
+    name: kojid
+    enabled: true
+    state: started
