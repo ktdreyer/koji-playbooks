@@ -56,6 +56,11 @@ Roles
 
 * ``roles/koji-builder`` - installs and configures a Koji builder.
 
+  This role requires the `koji_host
+  <https://github.com/ktdreyer/koji-ansible/blob/master/library/koji_host.py>`_
+  module from the `koji-ansible project
+  <https://github.com/ktdreyer/koji-ansible>`_.
+
 See Also
 --------
 
