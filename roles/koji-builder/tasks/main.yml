@@ -1,3 +1,17 @@
+- name: Add yum repository to work around rhbz1661580
+  yum_repository:
+    name: bz1661580
+    description: work around rhbz1661580
+    baseurl: https://fedorapeople.org/~ktdreyer/bz1661580/
+    gpgcheck: no
+  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 7
+
+- name: Install the very latest requests-kerberos (rhbz1661580)
+  package:
+    name: python-requests-kerberos
+    state: latest
+  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 7
+
 - name: Install Koji builder packages
   package:
     name: "{{ item }}"
