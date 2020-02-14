@@ -36,17 +36,17 @@
   args:
     creates: /var/kerberos/krb5kdc/principal.ok
 
-#- name: restart krb5kdc
-#  service:
-#    name: krb5kdc
-#    enabled: yes
-#    state: restarted
-#
-#- name: restart kadmin
-#  service:
-#    name: kadmin
-#    enabled: yes
-#    state: restarted
+- name: start krb5kdc
+  service:
+    name: krb5kdc
+    enabled: yes
+    state: started
+
+- name: start kadmin
+  service:
+    name: kadmin
+    enabled: yes
+    state: started
 
 - name: create krb principal
   include: principal.yml principal={{ item }}
