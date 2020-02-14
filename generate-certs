@@ -1,0 +1,28 @@
+#!/bin/bash
+
+set -exu
+
+# Location of the "koji-ssl-admin" script:
+KOJI_SSL_ADMIN=~/dev/koji-tools/src/bin/koji-ssl-admin
+
+# Generate our CA.
+$KOJI_SSL_ADMIN new-ca --force --common-name "example koji ca"
+
+# Generate our HTTPS key and cert.
+$KOJI_SSL_ADMIN server-csr --force kojidev.example.com
+$KOJI_SSL_ADMIN sign --force kojidev.example.com.csr
+
+# https://pagure.io/koji-tools/pull-request/38
+if [ ! -f kojidev.example.com.chain.crt ]; then
+  cat kojidev.example.com.crt koji-ca.crt > kojidev.example.com.chain.crt
+fi
+
+# Clean up the CSR
+rm kojidev.example.com.csr
+
+# Move the files into place in the roles.
+# (Copy the CA, since we might want that to sign additional things later.)
+cp koji-ca.crt                   roles/koji-hub/files/
+mv kojidev.example.com.chain.crt roles/koji-hub/files/
+mv kojidev.example.com.crt       roles/koji-hub/files/
+mv kojidev.example.com.key       roles/koji-hub/files/
