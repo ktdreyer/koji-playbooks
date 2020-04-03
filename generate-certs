@@ -12,11 +12,6 @@ $KOJI_SSL_ADMIN new-ca --force --common-name "example koji ca"
 $KOJI_SSL_ADMIN server-csr --force kojidev.example.com
 $KOJI_SSL_ADMIN sign --force kojidev.example.com.csr
 
-# https://pagure.io/koji-tools/pull-request/38
-if [ ! -f kojidev.example.com.chain.crt ]; then
-  cat kojidev.example.com.crt koji-ca.crt > kojidev.example.com.chain.crt
-fi
-
 # Clean up the CSR
 rm kojidev.example.com.csr
 
