@@ -16,7 +16,7 @@ $KOJI_SSL_ADMIN sign --force kojidev.example.com.csr
 rm kojidev.example.com.csr
 
 # Move the files into place in the roles.
-# (Copy the CA, since we might want that to sign additional things later.)
+# (*Copy* the CA, since we might want that to sign additional things later.)
 cp koji-ca.crt                   roles/koji-hub/files/
 mv kojidev.example.com.chain.crt roles/koji-hub/files/
 mv kojidev.example.com.crt       roles/koji-hub/files/
