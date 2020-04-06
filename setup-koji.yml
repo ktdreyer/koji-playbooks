@@ -1,6 +1,5 @@
 - name: manage Koji VM
   hosts: all
-  remote_user: cloud-user
   become: yes
   become_method: sudo
   roles:
