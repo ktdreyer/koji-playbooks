@@ -13,6 +13,23 @@ Playbooks
 Run this playbook on a RHEL 7 or CentOS 7 host with EPEL enabled. /mnt/koji
 should be a disk with plenty of space.
 
+SSL configuration
+-----------------
+
+* This playbook generates an SSL CA and keypair using the `koji-ssl-admin tool
+  <https://pagure.io/koji-tools/blob/master/f/src/bin/koji-ssl-admin>`_ .
+
+  The Certificate Authority keypair:
+  * ``/etc/pki/koji/koji-ca.crt``
+  * ``/etc/pki/koji/koji-ca.key``
+
+  The Apache web server HTTPS keypair (signed by koji-ca above):
+  * ``/etc/pki/koji/kojidev.example.com.chain.crt``
+  * ``/etc/pki/koji/kojidev.example.com.key``
+
+  For GSSAPI (Kerberos) authentication, these are the only SSL certs you will
+  need.
+
 Hard-coded things
 -----------------
 
@@ -22,16 +39,6 @@ things are currently hard-coded:
 * The hostname is hardcoded in several places as "kojidev.example.com".
 
 * The main username is hardcoded in several places as "kdreyer".
-
-* This playbook does not generate any new SSL certificates. It assumes you
-  already have an SSL CA and key pair. The `koji-ssl-admin tool
-  <https://pagure.io/koji-tools/blob/master/f/src/bin/koji-ssl-admin>`_ can
-  help with this.
-
-  * ``roles/koji-hub/files/kojidev.example.com.chain.crt``
-  * ``roles/koji-hub/files/kojidev.example.com.crt``
-  * ``roles/koji-hub/files/kojidev.example.com.csr``
-  * ``roles/koji-hub/files/kojidev.example.com.key``
 
 
 Roles

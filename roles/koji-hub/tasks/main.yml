@@ -87,44 +87,6 @@
   become: yes
   become_user: koji
 
-- name: /etc/pki/koji directory
-  file:
-    path: /etc/pki/koji
-    state: directory
-    mode: 0755
-
-- name: copy koji root CA
-  copy:
-    src: files/koji-ca.crt
-    dest: /etc/pki/koji/koji-ca.crt
-    owner: root
-    group: root
-    mode: 0644
-
-- name: copy CA chain file
-  copy:
-    src: files/kojidev.example.com.chain.crt
-    dest: /etc/pki/koji/kojidev.example.com.chain.crt
-    owner: root
-    group: root
-    mode: 0644
-
-- name: copy kojidev.example.com public cert
-  copy:
-    src: files/kojidev.example.com.crt
-    dest: /etc/pki/koji/kojidev.example.com.crt
-    owner: root
-    group: root
-    mode: 0644
-
-- name: copy kojidev.example.com private key
-  copy:
-    src: files/kojidev.example.com.key
-    dest: /etc/pki/koji/kojidev.example.com.key
-    owner: root
-    group: root
-    mode: 0600
-
 - name: copy mod_ssl config
   copy:
     src: files/ssl.conf
