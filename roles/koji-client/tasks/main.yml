@@ -1,5 +1,12 @@
 # Set up the client for authentication
 
+- name: Install Koji client packages
+  package:
+    name:
+    - koji
+    - krb5-workstation
+    state: present
+
 - name: copy koji client profile configuration
   copy:
     src: files/kojidev.conf

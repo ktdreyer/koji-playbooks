@@ -10,7 +10,6 @@
     - koji-hub
     - mod_ssl
     - mod_auth_gssapi
-    - koji
     state: present
 
 - name: initialize postgresql
