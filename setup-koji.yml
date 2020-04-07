@@ -5,6 +5,6 @@
   roles:
    - kdc
    - koji-ssl-admin
-   - koji-hub
    - koji-client
+   - koji-hub
    - koji-builder
