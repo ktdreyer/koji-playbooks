@@ -5,4 +5,5 @@
   roles:
    - kdc
    - koji-hub
+   - koji-client
    - koji-builder

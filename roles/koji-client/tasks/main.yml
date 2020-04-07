@@ -1,0 +1,15 @@
+# Set up the client for authentication
+
+- name: copy koji client profile configuration
+  copy:
+    src: files/kojidev.conf
+    dest: /etc/koji.conf.d/kojidev.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: symlink "kojidev" alias for this profile
+  file:
+    src: /usr/bin/koji
+    dest: /usr/bin/kojidev
+    state: link
