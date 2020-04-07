@@ -8,11 +8,10 @@
 
 - name: Install Kerberos packages
   package:
-    name: "{{ item }}"
-    state: present
-  with_items:
+    name:
     - krb5-server
     - krb5-workstation
+    state: present
 
 - name: copy /etc/krb5.conf
   copy:
