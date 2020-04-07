@@ -4,15 +4,14 @@
 
 - name: Install Koji packages
   package:
-    name: "{{ item }}"
-    state: present
-  with_items:
+    name:
     - postgresql-server
     - python-psycopg2
     - koji-hub
     - mod_ssl
     - mod_auth_gssapi
     - koji
+    state: present
 
 - name: initialize postgresql
   command: postgresql-setup initdb
