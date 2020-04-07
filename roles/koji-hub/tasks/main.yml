@@ -87,6 +87,13 @@
   become: yes
   become_user: koji
 
+- name: grant apache read access to HTTP keytab
+  file:
+    path: /var/local/HTTP.kojidev.example.com.keytab
+    owner: root
+    group: apache
+    mode: 0640
+
 - name: copy mod_ssl config
   copy:
     src: files/ssl.conf
