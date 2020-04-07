@@ -1,3 +1,11 @@
+- name: configure FQDN in /etc/hosts
+  copy:
+    dest: '/etc/hosts'
+    content: |
+      127.0.0.1   localhost
+      ::1         localhost
+      127.0.0.1   kojidev.example.com
+
 - name: Install Kerberos packages
   package:
     name: "{{ item }}"
