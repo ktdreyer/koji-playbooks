@@ -20,12 +20,12 @@ SSL configuration
   <https://pagure.io/koji-tools/blob/master/f/src/bin/koji-ssl-admin>`_ .
 
   The Certificate Authority keypair:
-  * ``/etc/pki/koji/koji-ca.crt``
-  * ``/etc/pki/koji/koji-ca.key``
+   * ``/etc/pki/koji/koji-ca.crt``
+   * ``/etc/pki/koji/koji-ca.key``
 
   The Apache web server HTTPS keypair (signed by koji-ca above):
-  * ``/etc/pki/koji/kojidev.example.com.chain.crt``
-  * ``/etc/pki/koji/kojidev.example.com.key``
+   * ``/etc/pki/koji/kojidev.example.com.chain.crt``
+   * ``/etc/pki/koji/kojidev.example.com.key``
 
   For GSSAPI (Kerberos) authentication, these are the only SSL certs you will
   need.
