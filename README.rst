@@ -54,7 +54,12 @@ Roles
 
 * ``roles/koji-hub`` - installs and configures Koji Hub
 
-  This will bootstrap "kdreyer" as the first Koji administrator in the
+  This role requires the `koji_host
+  <https://github.com/ktdreyer/koji-ansible/blob/master/library/koji_host.py>`_
+  module from the `koji-ansible project
+  <https://github.com/ktdreyer/koji-ansible>`_.
+
+  This role will bootstrap "kdreyer" as the first Koji administrator in the
   database.
 
   If you need more users, add them with the `koji_user
@@ -62,11 +67,6 @@ Roles
   module.
 
 * ``roles/koji-builder`` - installs and configures a Koji builder.
-
-  This role requires the `koji_host
-  <https://github.com/ktdreyer/koji-ansible/blob/master/library/koji_host.py>`_
-  module from the `koji-ansible project
-  <https://github.com/ktdreyer/koji-ansible>`_.
 
 See Also
 --------
