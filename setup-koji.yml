@@ -7,4 +7,5 @@
    - koji-ssl-admin
    - koji-client
    - koji-hub
+   - koji-web
    - koji-builder

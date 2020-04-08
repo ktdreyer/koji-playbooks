@@ -63,3 +63,4 @@
     - rcm/debbuild
     - HTTP/kojidev.example.com
     - compile/kojidev.example.com
+    - koji/kojiweb

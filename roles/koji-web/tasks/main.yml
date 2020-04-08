@@ -1,0 +1,33 @@
+- name: Install Koji web packages
+  package:
+    name: koji-web
+    state: present
+
+- name: copy /etc/httpd/conf.d/kojiweb.conf
+  copy:
+    src: files/kojiweb.conf
+    dest: /etc/httpd/conf.d/kojiweb.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy /etc/kojiweb/web.conf
+  copy:
+    src: files/web.conf
+    dest: /etc/kojiweb/web.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: grant apache read access to kojiweb keytab
+  file:
+    path: /var/local/koji.kojiweb.keytab
+    owner: root
+    group: apache
+    mode: 0640
+
+- name: restart httpd
+  service:
+    name: httpd
+    enabled: true
+    state: started
