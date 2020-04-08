@@ -64,3 +64,6 @@
     - HTTP/kojidev.example.com
     - compile/kojidev.example.com
     - koji/kojiweb
+
+- name: set up kdcproxy
+  include: kdcproxy.yml

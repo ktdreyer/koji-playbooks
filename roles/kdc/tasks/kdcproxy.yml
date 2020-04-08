@@ -1,0 +1,22 @@
+- name: Install kdcproxy packages
+  package:
+    name:
+    - httpd
+    - python-kdcproxy
+    state: present
+
+- name: copy /etc/httpd/conf.d/kdcproxy.conf
+  copy:
+    src: files/kdcproxy-apache.conf
+    dest: /etc/httpd/conf.d/kdcproxy.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy /etc/kdcproxy.conf
+  copy:
+    src: files/kdcproxy.conf
+    dest: /etc/kdcproxy.conf
+    owner: root
+    group: root
+    mode: 0644
