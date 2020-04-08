@@ -58,7 +58,6 @@
 - name: create krb principal
   include: principal.yml principal={{ item }}
   with_items:
-    - kdreyer/admin
     - kdreyer
     - rcm/debbuild
     - HTTP/kojidev.example.com

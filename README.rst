@@ -47,10 +47,9 @@ Roles
 * ``roles/kdc`` - installs and configures a Kerberos KDC, and bootstraps all
   the keytabs we need.
 
-  This will create a "kdreyer/admin" Kerberos admin
-  account (not really used), and then a "kdreyer" normal Kerberos account. The
-  "kdreyer" one will be bootstrapped into Koji later. If you need more
-  Kerberos users, add them here.
+  This will create a "kdreyer" Kerberos account. The ``koji-hub`` role will
+  bootstrap this account into Koji's database. If you need more Kerberos
+  users, add them here.
 
 * ``roles/koji-hub`` - installs and configures Koji Hub
 
