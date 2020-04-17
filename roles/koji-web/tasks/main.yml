@@ -10,6 +10,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart httpd
 
 - name: copy /etc/kojiweb/web.conf
   copy:
@@ -18,6 +20,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart httpd
 
 - name: grant apache read access to kojiweb keytab
   file:
@@ -25,9 +29,5 @@
     owner: root
     group: apache
     mode: 0640
-
-- name: restart httpd
-  service:
-    name: httpd
-    enabled: true
-    state: started
+  notify:
+  - restart httpd
