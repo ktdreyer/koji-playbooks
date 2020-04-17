@@ -13,6 +13,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart httpd
 
 - name: copy /etc/kdcproxy.conf
   copy:
@@ -21,3 +23,5 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart httpd

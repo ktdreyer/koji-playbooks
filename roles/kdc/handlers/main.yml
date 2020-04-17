@@ -1,0 +1,9 @@
+- name: restart krb5kdc
+  service:
+    name: krb5kdc
+    state: restarted
+
+- name: restart httpd
+  service:
+    name: httpd
+    state: restarted

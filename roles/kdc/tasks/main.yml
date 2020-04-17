@@ -20,6 +20,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart krb5kdc
 
 - name: copy /var/kerberos/krb5kdc/kdc.conf
   copy:
@@ -28,6 +30,8 @@
     owner: root
     group: root
     mode: 0600
+  notify:
+  - restart krb5kdc
 
 - name: configure /var/kerberos/krb5kdc/kadm5.acl
   copy:
@@ -37,11 +41,15 @@
     mode: 0600
     content: |
       */admin@KOJIDEV.EXAMPLE.COM	*
+  notify:
+  - restart krb5kdc
 
 - name: initialize KDC DB
   command: /usr/sbin/kdb5_util create -s -P test
   args:
     creates: /var/kerberos/krb5kdc/principal.ok
+  notify:
+  - restart krb5kdc
 
 - name: start krb5kdc
   service:
