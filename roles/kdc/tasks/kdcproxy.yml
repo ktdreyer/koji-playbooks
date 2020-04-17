@@ -2,6 +2,7 @@
   package:
     name:
     - httpd
+    - mod_ssl
     - python-kdcproxy
     state: present
 
