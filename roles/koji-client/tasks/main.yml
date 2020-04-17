@@ -20,3 +20,33 @@
     src: /usr/bin/koji
     dest: /usr/bin/kojidev
     state: link
+
+- name: determine unprivileged user
+  set_fact:
+    unprivileged_user: "{{ ansible_user }}"
+  become: no
+
+- name: determine unprivileged uid
+  getent:
+    database: passwd
+    key: "{{ unprivileged_user }}"
+
+- name: determine unprivileged user
+  set_fact:
+    unprivileged_uid: "{{ getent_passwd[unprivileged_user][1] }}"
+
+- name: "create /var/kerberos/krb5/user/{{ unprivileged_uid }} directories"
+  file:
+    path: "/var/kerberos/krb5/user/{{ unprivileged_uid }}"
+    state: directory
+
+- name: symlink kdreyer.keytab for unprivileged user
+  file:
+    src: /var/local/kdreyer.keytab
+    dest: "/var/kerberos/krb5/user/{{ unprivileged_uid }}/client.keytab"
+    state: link
+
+- name: make keytab readable by unprivileged user
+  file:
+    path: /var/local/kdreyer.keytab
+    owner: "{{ unprivileged_user }}"
