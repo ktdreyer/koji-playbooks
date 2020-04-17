@@ -16,10 +16,8 @@
 
 - name: Install Koji builder packages
   package:
-    name: "{{ item }}"
+    name: koji-builder
     state: present
-  with_items:
-    - koji-builder
 
 - name: copy /etc/kojid/kojid.conf
   copy:
