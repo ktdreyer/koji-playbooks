@@ -37,9 +37,11 @@
     src: /etc/pki/koji/koji-ca.crt
     dest: /etc/pki/ca-trust/source/anchors/koji-ca.crt
     state: link
+  register: koji_ca_anchor
 
 - name: trust our new Koji CA system-wide
   command: update-ca-trust extract
+  when: koji_ca_anchor.changed
 
 - name: restart kojid
   service:
