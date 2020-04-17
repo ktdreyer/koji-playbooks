@@ -16,6 +16,8 @@
   command: postgresql-setup initdb
   args:
     creates: /var/lib/pgsql/data/pg_hba.conf
+  notify:
+  - restart postgresql
 
 - name: configure pg_hba.conf
   copy:
@@ -27,17 +29,21 @@
       host    all       postgres 127.0.0.1/32      trust
       host    all       postgres ::1/128           trust
       local   all       postgres                   peer
+  notify:
+  - restart postgresql
 
 - name: make postgresql listen on all ports
   lineinfile:
     dest: /var/lib/pgsql/data/postgresql.conf
     regexp: '^#listen_addresses'
     line: "listen_addresses = '*'"
+  notify:
+  - restart postgresql
 
-- name: restart postgresql
+- name: start postgresql
   service:
     name: postgresql
-    state: restarted
+    state: started
     enabled: true
 
 - name: create koji user
@@ -91,6 +97,8 @@
     owner: root
     group: apache
     mode: 0640
+  notify:
+  - restart httpd
 
 - name: copy mod_ssl config
   copy:
@@ -99,6 +107,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart httpd
 
 - name: copy /etc/httpd/conf.d/kojihub.conf
   copy:
@@ -107,6 +117,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart httpd
 
 - name: copy /etc/koji-hub/hub.conf
   copy:
@@ -115,12 +127,14 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart httpd
 
-- name: restart httpd
+- name: start httpd
   service:
     name: httpd
     enabled: true
-    state: restarted
+    state: started
 
 - name: /mnt/koji directories
   file:

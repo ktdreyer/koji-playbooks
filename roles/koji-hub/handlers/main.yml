@@ -1,0 +1,9 @@
+- name: restart postgresql
+  service:
+    name: postgresql
+    state: restarted
+
+- name: restart httpd
+  service:
+    name: httpd
+    state: restarted
