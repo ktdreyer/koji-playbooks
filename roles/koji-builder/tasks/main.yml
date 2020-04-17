@@ -28,6 +28,8 @@
     owner: root
     group: root
     mode: 0644
+  notify:
+  - restart kojid
 
 # Because we have "topurl=https://..." in kojid.conf, we must trust this CA
 # system-wide because we query this URL with urllib2.
@@ -42,6 +44,8 @@
 - name: trust our new Koji CA system-wide
   command: update-ca-trust extract
   when: koji_ca_anchor.changed
+  notify:
+  - restart kojid
 
 - name: restart kojid
   service:
