@@ -170,3 +170,11 @@
   # This is the default Kerberos cache, so I've commented it out:
   #environment:
   #  KRB5CCNAME: KEYRING:persistent:0:0
+
+- name: Configure the kojira user account
+  koji_user:
+    koji: kojidev
+    name: koji/kojira
+    state: enabled
+    permissions:
+    - repo

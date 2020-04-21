@@ -1,0 +1,36 @@
+- name: Add yum repository to work around rhbz1661580
+  yum_repository:
+    name: bz1661580
+    description: work around rhbz1661580
+    baseurl: https://fedorapeople.org/~ktdreyer/bz1661580/
+    gpgcheck: no
+  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 7
+
+- name: Install the very latest requests-kerberos (rhbz1661580)
+  package:
+    name:
+    - python-requests-kerberos
+    - python2-kerberos
+    state: latest
+  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 7
+
+- name: Install Koji utils package
+  package:
+    name: koji-utils
+    state: present
+
+- name: copy /etc/kojira/kojira.conf
+  copy:
+    src: files/kojira.conf
+    dest: /etc/kojira/kojira.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - restart kojira
+
+- name: restart kojira
+  service:
+    name: kojira
+    enabled: true
+    state: started
