@@ -1,5 +1,6 @@
 - name: check if {{ principal }} account exists
   command: /usr/sbin/kadmin.local -q "getprinc {{ principal }}"
+  check_mode: no
   register: account_exists
   tags:
    - krb_account
