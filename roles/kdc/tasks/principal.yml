@@ -11,9 +11,15 @@
   tags:
    - krb_account
 
-- name: create /var/local/{{ principal | replace ('/', '.') }}.keytab
-  command: /usr/sbin/kadmin.local -q "ktadd -k /var/local/{{ principal | replace ('/', '.') }}.keytab {{ principal }}"
+- name: "determine {{ principal }} keytab file name"
+  set_fact:
+    keytab: "/var/local/{{ principal | replace ('/', '.') }}.keytab"
+  tags:
+   - krb_account
+
+- name: create {{ keytab }}
+  command: /usr/sbin/kadmin.local -q "ktadd -k {{ keytab }} {{ principal }}"
   args:
-    creates: "/var/local/{{ principal | replace ('/', '.') }}.keytab"
+    creates: "{{ keytab }}"
   tags:
    - krb_account
