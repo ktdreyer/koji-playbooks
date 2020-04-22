@@ -78,19 +78,16 @@
   args:
     executable: /bin/bash
   when: "database_is_populated.rc == 1"
-  become: yes
   become_user: koji
 
 - name: insert kdreyer as a user
   shell: psql -c "insert into users (name, status, usertype) values ('kdreyer', 0, 0);"
-  become: yes
   become_user: koji
   when: "database_is_populated.rc == 1"
 
 - name: grant kdreyer admin rights
   shell: psql -c "insert into user_perms (user_id, perm_id, creator_id) values (1, 1, 1);"
   when: "database_is_populated.rc == 1"
-  become: yes
   become_user: koji
 
 - name: grant apache read access to HTTP keytab
