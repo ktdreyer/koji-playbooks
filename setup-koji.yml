@@ -3,10 +3,10 @@
   become: yes
   become_method: sudo
   roles:
-   - kdc
-   - koji-ssl-admin
-   - koji-client
-   - koji-hub
-   - koji-web
-   - koji-builder
-   - koji-ra
+  - kdc
+  - koji-ssl-admin
+  - koji-client
+  - koji-hub
+  - koji-web
+  - koji-builder
+  - koji-ra
