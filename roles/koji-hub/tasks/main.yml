@@ -59,7 +59,8 @@
     #login_unix_socket: /var/run/postgresql
   become_user: postgres
 
-- postgresql_db:
+- name: create postgres koji database
+  postgresql_db:
     name: koji
     owner: koji
     #login_unix_socket: /var/run/postgresql
