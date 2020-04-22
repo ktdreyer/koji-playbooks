@@ -51,7 +51,8 @@
     name: koji
     shell: /bin/bash
 
-- postgresql_user:
+- name: create postgres user koji
+  postgresql_user:
     name: koji
     password: test
     #priv: "CONNECT/koji:ALL"
