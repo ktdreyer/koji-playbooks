@@ -50,6 +50,18 @@
   notify:
   - restart postgresql
 
+# Note: this is not in the upstream documentation. It's still under discussion
+# upstream, see
+# https://lists.fedorahosted.org/archives/list/koji-devel@lists.fedorahosted.org/thread/NMDIDYS7CZWB3SMPT6UO2P5WGZXKIZVW/
+- name: increase number of max connections
+  lineinfile:
+    dest: /var/lib/pgsql/data/postgresql.conf
+    regexp: '^max_connections'
+    line: "max_connections = 500"
+  notify:
+  - restart postgresql
+  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int > 7
+
 - name: start postgresql
   service:
     name: postgresql
