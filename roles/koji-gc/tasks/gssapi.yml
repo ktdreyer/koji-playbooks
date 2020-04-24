@@ -1,16 +1,9 @@
 # Workaround until we have https://pagure.io/koji/pull-request/2151
 
-- name: Install patch utility
-  package:
-    name: patch
-    state: present
-
-- name: Download GSSAPI patch file
+- name: update koji-gc for GSSAPI
   get_url:
-    url: https://pagure.io/koji/pull-request/2151.patch
-    dest: /var/local/2151.patch
-  register: gssapi_patch
-
-- name: Apply patch to /usr/sbin/koji-gc
-  command: patch -p1 /usr/sbin/koji-gc -i /var/local/2151.patch
-  when: gssapi_patch.changed
+    url: https://pagure.io/fork/tkopecek/koji/raw/issue2143/f/util/koji-gc
+    dest: /usr/sbin/koji-gc
+    owner: root
+    group: root
+    mode: 0755
