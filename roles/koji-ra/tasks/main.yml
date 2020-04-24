@@ -29,7 +29,7 @@
   notify:
   - restart kojira
 
-- name: restart kojira
+- name: start kojira
   service:
     name: kojira
     enabled: true
