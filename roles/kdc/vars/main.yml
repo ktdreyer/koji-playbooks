@@ -1,0 +1,2 @@
+python_kdcproxy: python3-kdcproxy
+python_sitelib: /usr/lib/python3.6/site-packages
