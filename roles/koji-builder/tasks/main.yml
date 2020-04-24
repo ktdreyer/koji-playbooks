@@ -45,7 +45,7 @@
   notify:
   - restart kojid
 
-- name: restart kojid
+- name: start kojid
   service:
     name: kojid
     enabled: true
