@@ -1,7 +1,7 @@
 - name: install prerequisites
   package:
     name:
-    - git
+    - git-core
     - python3
     state: present
 
