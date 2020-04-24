@@ -1,0 +1,16 @@
+# Workaround until we have https://pagure.io/koji/pull-request/2151
+
+- name: Install patch utility
+  package:
+    name: patch
+    state: present
+
+- name: Download GSSAPI patch file
+  get_url:
+    url: https://pagure.io/koji/pull-request/2151.patch
+    dest: /var/local/2151.patch
+  register: gssapi_patch
+
+- name: Apply patch to /usr/sbin/koji-gc
+  command: patch -p1 /usr/sbin/koji-gc -i /var/local/2151.patch
+  when: gssapi_patch.changed

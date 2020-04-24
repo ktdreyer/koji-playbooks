@@ -72,6 +72,7 @@
     - compile/kojidev.example.com
     - koji/kojiweb
     - koji/kojira
+    - koji/garbagecollector
 
 - name: set up kdcproxy
   include: kdcproxy.yml

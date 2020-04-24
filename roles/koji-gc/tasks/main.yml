@@ -1,0 +1,34 @@
+- name: Install Koji utils package
+  package:
+    name: koji-utils
+    state: present
+
+- name: copy /etc/koji-gc/koji-gc.conf
+  copy:
+    src: files/koji-gc.conf
+    dest: /etc/koji-gc/koji-gc.conf
+    owner: root
+    group: root
+    mode: 0644
+
+# TODO: submit to koji packaging upstream:
+- name: install koji-gc systemd unit files
+  copy:
+    src: "files/{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+  - reload systemd
+  with_items:
+  - koji-gc.service
+  - koji-gc.timer
+
+- name: patch for GSSAPI support
+  include: gssapi.yml
+
+- name: enable koji-gc.timer
+  service:
+    name: koji-gc.timer
+    enabled: true

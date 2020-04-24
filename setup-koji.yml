@@ -10,3 +10,4 @@
   - koji-web
   - koji-builder
   - koji-ra
+  - koji-gc

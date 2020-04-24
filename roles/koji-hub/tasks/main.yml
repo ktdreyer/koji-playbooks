@@ -176,3 +176,18 @@
     permissions:
     - repo
   become: no
+
+- name: Configure the garbagecollector user account
+  koji_user:
+    koji: kojidev
+    name: koji/garbagecollector
+    state: enabled
+    permissions:
+    - admin
+  become: no
+
+- name: trashcan tag
+  koji_tag:
+    koji: kojidev
+    name: trashcan
+  become: no
