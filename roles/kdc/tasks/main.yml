@@ -63,16 +63,20 @@
     enabled: yes
     state: started
 
-- name: create krb principal
-  include: principal.yml principal={{ item }}
+- name: Create Kerberos principals
+  krb_principal:
+    name: "{{ item }}"
+    keytab: "/var/local/{{ item | replace ('/', '.') }}.keytab"
   with_items:
-    - kdreyer
-    - rcm/debbuild
-    - HTTP/kojidev.example.com
-    - compile/kojidev.example.com
-    - koji/kojiweb
-    - koji/kojira
-    - koji/garbagecollector
+  - kdreyer
+  - rcm/debbuild
+  - HTTP/kojidev.example.com
+  - compile/kojidev.example.com
+  - koji/kojiweb
+  - koji/kojira
+  - koji/garbagecollector
+  tags:
+  - krb_account
 
 - name: set up kdcproxy
   include: kdcproxy.yml
