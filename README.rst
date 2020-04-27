@@ -51,6 +51,12 @@ Roles
   bootstrap this account into Koji's database. If you need more Kerberos
   users, add them here.
 
+* ``roles/koji-ssl-admin`` - Creates the SSL CA and HTTPS keypair for the Koji
+  server.
+
+* ``roles/koji-client`` - Configures a ``kojidev`` script and `profile
+  <https://docs.pagure.org/koji/profiles/>`_.
+
 * ``roles/koji-hub`` - installs and configures Koji Hub
 
   This role requires the `koji_host
@@ -65,7 +71,15 @@ Roles
   <https://github.com/ktdreyer/koji-ansible/blob/master/library/koji_user.py>`_
   module.
 
+* ``roles/koji-web`` - installs and configures the web interface for Koji.
+
 * ``roles/koji-builder`` - installs and configures a Koji builder.
+
+* ``roles/koji-ra`` - installs and configures the Koji "ra" (repository admin)
+  service.
+
+* ``roles/koji-gc`` - installs and configures the Koji garbage collector
+  service.
 
 See Also
 --------
