@@ -11,7 +11,7 @@
     group: root
     mode: 0644
 
-# TODO: submit to koji packaging upstream:
+# Submitted upstream at https://pagure.io/koji/issue/2198
 - name: install koji-gc systemd unit files
   copy:
     src: "files/{{ item }}"
