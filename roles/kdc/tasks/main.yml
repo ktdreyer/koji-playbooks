@@ -40,7 +40,7 @@
     group: root
     mode: 0600
     content: |
-      */admin@KOJIDEV.EXAMPLE.COM	*
+      */admin@KOJIDEV.EXAMPLE.COM *
   notify:
   - restart krb5kdc
 
