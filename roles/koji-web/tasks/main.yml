@@ -23,11 +23,28 @@
   notify:
   - restart httpd
 
+- name: grant apache selinux access to kojiweb keytab
+  sefcontext:
+    target: /var/local/koji.kojiweb.keytab
+    setype: httpd_config_t
+    state: present
+  notify:
+  - restart httpd
+
 - name: grant apache read access to kojiweb keytab
   file:
     path: /var/local/koji.kojiweb.keytab
     owner: root
     group: apache
     mode: 0640
+    setype: httpd_config_t
+  notify:
+  - restart httpd
+
+- name: allow httpd selinux access to contact kerberos and koji-hub
+  seboolean:
+    name: httpd_can_network_connect
+    state: yes
+    persistent: yes
   notify:
   - restart httpd

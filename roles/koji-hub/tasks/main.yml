@@ -1,16 +1,26 @@
-- name: Disable SELinux
-  selinux:
-    policy: targeted
-    state: permissive
+- name: Gather OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
 
-- name: Install Koji packages
+- name: Install Koji and SELinux packages
   package:
     name:
     - postgresql-server
     - koji-hub
     - mod_ssl
     - mod_auth_gssapi
+    - "{{ python_libsemanage }}"
     state: present
+
+- name: allow httpd selinux access to write public_content_rw_t files
+  seboolean:
+    name: httpd_anon_write
+    state: yes
+    persistent: yes
+  notify:
+  - restart httpd
 
 - name: initialize postgresql
   command: postgresql-setup initdb
@@ -94,12 +104,21 @@
   when: database_is_populated.failed
   become_user: koji
 
+- name: grant apache selinux access to HTTP keytab
+  sefcontext:
+    target: /var/local/HTTP.kojidev.example.com.keytab
+    setype: httpd_config_t
+    state: present
+  notify:
+  - restart httpd
+
 - name: grant apache read access to HTTP keytab
   file:
     path: /var/local/HTTP.kojidev.example.com.keytab
     owner: root
     group: apache
     mode: 0640
+    setype: httpd_config_t
   notify:
   - restart httpd
 
@@ -139,6 +158,12 @@
     enabled: true
     state: started
 
+- name: grant apache selinux access to /mnt/koji
+  sefcontext:
+    target: "/mnt/koji(/.*)?"
+    setype: httpd_sys_rw_content_t
+    state: present
+
 - name: /mnt/koji directories
   file:
     path: /mnt/koji/{{ item }}
@@ -146,6 +171,7 @@
     mode: 0755
     owner: apache
     group: apache
+    setype: public_content_rw_t
   with_items:
     -
     - packages
