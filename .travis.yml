@@ -1,10 +1,8 @@
 language: python
 install: pip install ansible
-script: |
-  git clone --depth 1 https://github.com/ktdreyer/koji-ansible
-  pushd koji-ansible
-    git log HEAD -1 --no-decorate
-  popd
-  ln -s koji-ansible/library/ library
-  ln -s koji-ansible/module_utils/ module_utils
-  ansible-playbook -i localhost, setup-koji.yml --syntax-check
+script:
+  - git clone --depth 1 https://github.com/ktdreyer/koji-ansible
+  - pushd koji-ansible && git log HEAD -1 --no-decorate && popd
+  - ln -s koji-ansible/library/ library
+  - ln -s koji-ansible/module_utils/ module_utils
+  - ansible-playbook -i localhost, setup-koji.yml --syntax-check
