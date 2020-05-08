@@ -1,4 +1,5 @@
-- selinux:
+- name: Disable SELinux
+  selinux:
     policy: targeted
     state: permissive
 
