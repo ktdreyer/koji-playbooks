@@ -1,0 +1,3 @@
+language: python
+install: pip install ansible
+script: ansible-playbook -i localhost, setup-koji.yml --syntax-check
