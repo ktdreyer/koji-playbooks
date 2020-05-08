@@ -13,7 +13,7 @@
     state: present
   when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 7
 
-- name: clone koji-tools.git
+- name: clone koji-tools.git  # noqa 401
   git:
     repo: https://pagure.io/koji-tools.git
     dest: /usr/local/koji-tools
