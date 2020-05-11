@@ -1,17 +1,13 @@
+- name: Gather OS-specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}-{{ ansible_distribution_major_version }}.yml"
+    - "{{ ansible_distribution }}.yml"
+
 - name: install prerequisites
   package:
-    name:
-    - git-core
-    - python3
+    name: "{{ ssl_admin_prerequisites }}"
     state: present
-
-- name: install el7 prerequisites
-  package:
-    name:
-    - python36-cryptography
-    - python36-dateutil
-    state: present
-  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 7
 
 - name: clone koji-tools.git  # noqa 401
   git:
