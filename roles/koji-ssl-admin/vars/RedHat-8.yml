@@ -1,3 +1,5 @@
 ssl_admin_prerequisites:
   - git-core
   - python3
+  - python3-cryptography
+  - python3-dateutil
