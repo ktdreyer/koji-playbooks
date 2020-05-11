@@ -19,6 +19,7 @@
     name:
     - httpd
     - mod_ssl
+    - mod_wsgi
     - "{{ python_kdcproxy }}"
     state: present
 
