@@ -1,8 +1,9 @@
-# Workaround until we have https://pagure.io/koji/pull-request/2151
+# Workaround until https://pagure.io/koji/pull-request/2151 is released
+# in Koji v1.22
 
 - name: update koji-gc for GSSAPI
   get_url:
-    url: https://pagure.io/fork/tkopecek/koji/raw/issue2143/f/util/koji-gc
+    url: https://pagure.io/koji/raw/master/f/util/koji-gc
     dest: /usr/sbin/koji-gc
     owner: root
     group: root
