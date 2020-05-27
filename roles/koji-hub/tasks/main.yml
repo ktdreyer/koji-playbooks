@@ -24,6 +24,16 @@
     - mod_auth_gssapi
     state: present
 
+- name: allow httpd selinux access to connect to postgres
+  seboolean:
+    name: httpd_can_network_connect_db
+    state: yes
+    persistent: yes
+  when:
+    - ansible_selinux.status != "disabled"
+  notify:
+  - restart httpd
+
 - name: allow httpd selinux access to write public_content_rw_t files
   seboolean:
     name: httpd_anon_write

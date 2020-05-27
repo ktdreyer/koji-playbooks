@@ -14,17 +14,18 @@
   copy:
     dest: /var/lib/pgsql/data/pg_hba.conf
     content: |
-      local   koji        koji                       trust
-      local   all         postgres                   peer
+      host    koji      koji     127.0.0.1/32      md5
+      host    koji      koji     ::1/128           md5
+      local   all       postgres                   peer
     mode: preserve
   notify:
   - reload postgresql
 
-- name: disable TCP/IP for postgres
+- name: make postgresql listen on all ports
   lineinfile:
     dest: /var/lib/pgsql/data/postgresql.conf
     regexp: '^#listen_addresses'
-    line: "listen_addresses = ''"
+    line: "listen_addresses = '*'"
   notify:
   - reload postgresql
 
