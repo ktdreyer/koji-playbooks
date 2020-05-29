@@ -1,1 +1,3 @@
-python_libsemanage: libsemanage-python
+selinux_packages:
+  - libsemanage-python
+  - policycoreutils-python
