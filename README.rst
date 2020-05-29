@@ -33,6 +33,10 @@ SSL configuration
   For GSSAPI (Kerberos) authentication, these are the only SSL certs you will
   need.
 
+  The koji-hub role publishes the Koji CA at the following URL:
+  https://kojidev.example.com/kojifiles/koji-ca.crt . External Koji clients
+  can download this file to verify the HTTPS connections.
+
 Hard-coded things
 -----------------
 

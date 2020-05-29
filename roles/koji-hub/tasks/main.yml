@@ -184,6 +184,12 @@
     - scratch
     - repos-dist
 
+- name: link our Koji CA to a public web-accessible location
+  file:
+    src: /etc/pki/koji/koji-ca.crt
+    dest: /mnt/koji/koji-ca.crt
+    state: link
+
 - name: Configure the new builder on the hub
   koji_host:
     koji: kojidev
