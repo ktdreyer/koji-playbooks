@@ -5,6 +5,9 @@
       127.0.0.1   localhost
       ::1         localhost
       127.0.0.1   kojidev.example.com
+  when:
+    - ansible_virtualization_type != "podman"
+    - ansible_virtualization_type != "docker"
 
 - name: Install Kerberos packages
   package:
