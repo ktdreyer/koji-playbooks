@@ -1,6 +1,22 @@
 # Workaround until https://pagure.io/koji/pull-request/2151 is released
 # in Koji v1.22
 
+- name: determine expected koji-gc checksum
+  set_fact:
+    expected_koji_gc_checksum: "773eb914d128b41f39e42a09735fd1cbf4b43230"
+
+- name: determine expected koji-gc checksum
+  set_fact:
+    expected_koji_gc_checksum: "8474430e4383d829338cb80205cb1da876dc799a"
+  when:
+    - ansible_distribution_file_variety == "RedHat"
+    - ansible_distribution_major_version|int > 7
+
+- name: discover checksum for koji-gc
+  stat:
+    path: /usr/sbin/koji-gc
+  register: koji_gc
+
 - name: update koji-gc for GSSAPI
   get_url:
     url: https://pagure.io/koji/raw/master/f/util/koji-gc
@@ -9,6 +25,7 @@
     owner: root
     group: root
     mode: 0755
+  when: koji_gc.stat.checksum != expected_koji_gc_checksum
 
 - name: use python3 for /usr/sbin/koji-gc
   lineinfile:
