@@ -64,6 +64,8 @@ Roles
 * ``roles/koji-client`` - Configures a ``kojidev`` script and `profile
   <https://docs.pagure.org/koji/profiles/>`_.
 
+* ``roles/postgresql`` - installs and configures PostgreSQL for Koji Hub
+
 * ``roles/koji-hub`` - installs and configures Koji Hub
 
   This role requires the `koji_host

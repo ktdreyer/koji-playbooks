@@ -6,6 +6,7 @@
   - kdc
   - koji-ssl-admin
   - koji-client
+  - postgresql
   - koji-hub
   - koji-web
   - koji-builder

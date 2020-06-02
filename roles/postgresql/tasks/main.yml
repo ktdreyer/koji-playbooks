@@ -1,0 +1,46 @@
+- name: Install postgresql-server package
+  package:
+    name: postgresql-server
+    state: present
+
+- name: initialize postgresql
+  command: postgresql-setup initdb
+  args:
+    creates: /var/lib/pgsql/data/pg_hba.conf
+  notify:
+  - restart postgresql
+
+- name: configure pg_hba.conf
+  copy:
+    dest: /var/lib/pgsql/data/pg_hba.conf
+    content: |
+      local   koji        koji                       trust
+      local   all         postgres                   peer
+  notify:
+  - restart postgresql
+
+- name: disable TCP/IP for postgres
+  lineinfile:
+    dest: /var/lib/pgsql/data/postgresql.conf
+    regexp: '^#listen_addresses'
+    line: "listen_addresses = ''"
+  notify:
+  - restart postgresql
+
+# Note: this is not in the upstream documentation. It's still under discussion
+# upstream, see
+# https://lists.fedorahosted.org/archives/list/koji-devel@lists.fedorahosted.org/thread/NMDIDYS7CZWB3SMPT6UO2P5WGZXKIZVW/
+- name: increase number of max connections
+  lineinfile:
+    dest: /var/lib/pgsql/data/postgresql.conf
+    regexp: '^max_connections'
+    line: "max_connections = 500"
+  notify:
+  - restart postgresql
+  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int > 7
+
+- name: start postgresql
+  service:
+    name: postgresql
+    state: started
+    enabled: true
