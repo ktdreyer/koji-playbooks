@@ -13,7 +13,7 @@ Playbooks
 * ``setup-koji.yml`` - Installs and configures a Kerberos KDC, koji-hub, and
   koji-builder.
 
-Run this playbook on a RHEL 7 or CentOS 7 host with EPEL enabled. /mnt/koji
+Run this playbook on a RHEL or CentOS 7 or 8 host with EPEL enabled. /mnt/koji
 should be a disk with plenty of space.
 
 SSL configuration
