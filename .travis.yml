@@ -17,3 +17,12 @@ jobs:
       install: pip install ansible-lint
       script:
         - ANSIBLE_LIBRARY=library ansible-lint -x 501 -v roles/*
+
+    - name: molecule
+      install: pip install molecule docker
+      script:
+        - export ANSIBLE_MODULE_UTILS=$(pwd)/module_utils
+        - export ANSIBLE_LIBRARY=$(pwd)/library
+        - molecule test -d docker -s centos8
+      services:
+        - docker

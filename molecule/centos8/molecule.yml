@@ -1,0 +1,28 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+platforms:
+  - name: instance
+    registry:
+      url: docker.io/library
+    image: centos:8
+    privileged: true
+    command: "/usr/sbin/init"
+    tty: True
+    etc_hosts:
+      kojidev.example.com: 127.0.0.1
+    capabilities:
+      - SYS_ADMIN
+    hostname: kojidev.example.com
+provisioner:
+  name: ansible
+  inventory:
+    host_vars:
+      instance:
+        ansible_user: ansible
+        # Silence warnings in Ansible 2.9:
+        ansible_python_interpreter: /usr/bin/python3
+verifier:
+  name: ansible
