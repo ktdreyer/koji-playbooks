@@ -5,6 +5,7 @@
   get_url:
     url: https://pagure.io/koji/raw/master/f/util/koji-gc
     dest: /usr/sbin/koji-gc
+    checksum: "sha1:773eb914d128b41f39e42a09735fd1cbf4b43230"
     owner: root
     group: root
     mode: 0755
