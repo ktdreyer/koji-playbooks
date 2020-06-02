@@ -8,6 +8,13 @@
   package:
     name: "{{ selinux_packages }}"
     state: present
+  register: selinux_packages_installed
+
+- name: re-gather facts after installing SELinux packages
+  setup:
+  when:
+    - not ansible_selinux_python_present
+    - selinux_packages_installed.changed
 
 - name: Install Koji packages
   package:
