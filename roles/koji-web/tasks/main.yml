@@ -28,6 +28,8 @@
     target: /var/local/koji.kojiweb.keytab
     setype: httpd_config_t
     state: present
+  when:
+    - ansible_selinux.status != "disabled"
   notify:
   - restart httpd
 
@@ -46,5 +48,7 @@
     name: httpd_can_network_connect
     state: yes
     persistent: yes
+  when:
+    - ansible_selinux.status != "disabled"
   notify:
   - restart httpd

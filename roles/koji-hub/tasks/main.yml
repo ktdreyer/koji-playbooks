@@ -30,6 +30,8 @@
     name: httpd_anon_write
     state: yes
     persistent: yes
+  when:
+    - ansible_selinux.status != "disabled"
   notify:
   - restart httpd
 
@@ -132,6 +134,8 @@
     target: /var/local/HTTP.kojidev.example.com.keytab
     setype: httpd_config_t
     state: present
+  when:
+    - ansible_selinux.status != "disabled"
   notify:
   - restart httpd
 
@@ -186,6 +190,8 @@
     target: "/mnt/koji(/.*)?"
     setype: httpd_sys_rw_content_t
     state: present
+  when:
+    - ansible_selinux.status != "disabled"
 
 - name: /mnt/koji directories
   file:
