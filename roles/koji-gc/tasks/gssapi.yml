@@ -5,7 +5,7 @@
   set_fact:
     expected_koji_gc_checksum: "773eb914d128b41f39e42a09735fd1cbf4b43230"
 
-- name: determine expected koji-gc checksum
+- name: determine expected koji-gc checksum for py3
   set_fact:
     expected_koji_gc_checksum: "8474430e4383d829338cb80205cb1da876dc799a"
   when:
