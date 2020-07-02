@@ -3,11 +3,11 @@
 
 - name: determine expected koji-gc checksum
   set_fact:
-    expected_koji_gc_checksum: "773eb914d128b41f39e42a09735fd1cbf4b43230"
+    expected_koji_gc_checksum: "f343e6fd524918f1edffbae650cdd9244585d29b"
 
 - name: determine expected koji-gc checksum for py3
   set_fact:
-    expected_koji_gc_checksum: "8474430e4383d829338cb80205cb1da876dc799a"
+    expected_koji_gc_checksum: "60e14bf738d9f6b7b9bd9a917d4221b9033895b5"
   when:
     - ansible_distribution_file_variety == "RedHat"
     - ansible_distribution_major_version|int > 7
@@ -21,7 +21,7 @@
   get_url:
     url: https://pagure.io/koji/raw/master/f/util/koji-gc
     dest: /usr/sbin/koji-gc
-    checksum: "sha1:773eb914d128b41f39e42a09735fd1cbf4b43230"
+    checksum: "sha1:f343e6fd524918f1edffbae650cdd9244585d29b"
     owner: root
     group: root
     mode: 0755
