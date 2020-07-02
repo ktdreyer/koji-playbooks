@@ -1,2 +1,3 @@
 python_kdcproxy: python3-kdcproxy
 python_sitelib: /usr/lib/python3.6/site-packages
+mod_wsgi: python3-mod_wsgi
