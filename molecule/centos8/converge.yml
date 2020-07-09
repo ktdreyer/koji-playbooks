@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   # Note, "become: no" does not work in Ansible 2.9's podman connection plugin.
-  # See https://github.com/containers/ansible-podman-collections/pull/19
+  # See https://github.com/ansible/ansible/pull/70541
   become: yes
   become_method: sudo
   tasks:
