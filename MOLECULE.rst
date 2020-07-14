@@ -73,3 +73,18 @@ similar way to GitHub Actions::
 
   sudo apt-get -y install python3-pip
   pip3 install docker molecule[ansible,docker] --user
+
+Versioning
+----------
+
+There are many bugs in podman, Ansible, and Molecule. Please run the latest
+versions of each.
+
+Version combinations that are known to work:
+- python3-molecule-3.0.5-2.fc32
+- ansible-2.9.14-1.fc32
+- podman-2.1.1-7.fc32
+
+Note that since we run systemd in the container, that means that the systemd
+version in CentOS 8 and the kernel version on the host (eg Fedora) sometimes
+interact poorly. See https://bugzilla.redhat.com/1853736 for an example.
