@@ -20,6 +20,7 @@ jobs:
 
     - name: molecule
       install: pip install molecule docker
+      dist: bionic
       script:
         - export ANSIBLE_MODULE_UTILS=$(pwd)/module_utils
         - export ANSIBLE_LIBRARY=$(pwd)/library
