@@ -13,8 +13,6 @@ platforms:
     tty: True
     etc_hosts:
       kojidev.example.com: 127.0.0.1
-    capabilities:
-      - SYS_ADMIN
     hostname: kojidev.example.com
 provisioner:
   name: ansible
