@@ -26,12 +26,12 @@
     unprivileged_user: "{{ ansible_user }}"
   become: no
 
-- name: determine unprivileged uid
+- name: determine unprivileged passwd info
   getent:
     database: passwd
     key: "{{ unprivileged_user }}"
 
-- name: determine unprivileged user
+- name: determine unprivileged uid number
   set_fact:
     unprivileged_uid: "{{ getent_passwd[unprivileged_user][1] }}"
 
