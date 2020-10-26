@@ -39,6 +39,8 @@
   file:
     path: "/var/kerberos/krb5/user/{{ unprivileged_uid }}"
     state: directory
+    mode: 0700
+    owner: "{{ unprivileged_user }}"
 
 - name: symlink kdreyer.keytab for unprivileged user
   file:
