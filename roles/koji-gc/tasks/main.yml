@@ -25,9 +25,6 @@
   - koji-gc.service
   - koji-gc.timer
 
-- name: patch for GSSAPI support
-  include: gssapi.yml
-
 - name: enable koji-gc.timer
   service:
     name: koji-gc.timer
