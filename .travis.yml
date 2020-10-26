@@ -19,7 +19,7 @@ jobs:
         - ANSIBLE_LIBRARY=library ansible-lint -x 501 -v roles/*
 
     - name: molecule
-      install: pip install molecule docker
+      install: pip install docker molecule[ansible,docker]
       dist: focal
       script:
         - export ANSIBLE_MODULE_UTILS=$(pwd)/module_utils
