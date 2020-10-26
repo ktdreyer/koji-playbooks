@@ -56,11 +56,11 @@ https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule
 Replicating Travis CI locally
 -----------------------------
 
-Travis CI runs the tests in an Ubuntu Bionic VM. It can be tedious to push
+Travis CI runs the tests in an Ubuntu Focal VM. It can be tedious to push
 changes to Travis CI, wait, and review the output. You may want to set up your
-own local Ubuntu Bionic VM when making large changes that impact the tests.
+own local Ubuntu Focal VM when making large changes that impact the tests.
 
-Follow these instructions to set up Docker on your own Ubuntu Bionic VM in a
+Follow these instructions to set up Docker on your own Ubuntu Focal VM in a
 similar way to Travis CI::
 
   sudo apt-get update
