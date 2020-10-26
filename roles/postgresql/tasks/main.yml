@@ -8,7 +8,7 @@
   args:
     creates: /var/lib/pgsql/data/pg_hba.conf
   notify:
-  - restart postgresql
+  - reload postgresql
 
 - name: configure pg_hba.conf
   copy:
@@ -18,7 +18,7 @@
       local   all         postgres                   peer
     mode: preserve
   notify:
-  - restart postgresql
+  - reload postgresql
 
 - name: disable TCP/IP for postgres
   lineinfile:
@@ -26,7 +26,7 @@
     regexp: '^#listen_addresses'
     line: "listen_addresses = ''"
   notify:
-  - restart postgresql
+  - reload postgresql
 
 # Note: this is not in the upstream documentation. It's still under discussion
 # upstream, see
@@ -37,7 +37,7 @@
     regexp: '^max_connections'
     line: "max_connections = 500"
   notify:
-  - restart postgresql
+  - reload postgresql
   when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int > 7
 
 - name: start postgresql
