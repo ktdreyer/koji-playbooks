@@ -16,7 +16,7 @@ jobs:
     - name: ansible-lint
       install: pip install ansible-lint
       script:
-        - ANSIBLE_LIBRARY=library ansible-lint -x 501 -v roles/*
+        - ANSIBLE_LIBRARY=library ansible-lint -x 106 -x 501 -v roles/*
 
     - name: molecule
       install: pip install docker molecule[ansible,docker]
