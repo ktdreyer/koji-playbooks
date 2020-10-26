@@ -11,20 +11,6 @@
     group: root
     mode: 0644
 
-# Submitted upstream at https://pagure.io/koji/issue/2198
-- name: install koji-gc systemd unit files
-  copy:
-    src: "files/{{ item }}"
-    dest: "/etc/systemd/system/{{ item }}"
-    owner: root
-    group: root
-    mode: 0644
-  notify:
-  - reload systemd
-  with_items:
-  - koji-gc.service
-  - koji-gc.timer
-
 - name: enable koji-gc.timer
   service:
     name: koji-gc.timer
