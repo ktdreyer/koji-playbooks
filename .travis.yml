@@ -22,8 +22,9 @@ jobs:
       install: pip install docker molecule[ansible,docker]
       dist: focal
       script:
+        - sed -i -e 's/podman/docker/g' molecule/centos8/molecule.yml
         - export ANSIBLE_MODULE_UTILS=$(pwd)/module_utils
         - export ANSIBLE_LIBRARY=$(pwd)/library
-        - molecule test -d docker -s centos8
+        - molecule test -s centos8
       services:
         - docker
