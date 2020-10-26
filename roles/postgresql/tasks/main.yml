@@ -16,6 +16,7 @@
     content: |
       local   koji        koji                       trust
       local   all         postgres                   peer
+    mode: preserve
   notify:
   - restart postgresql
 
