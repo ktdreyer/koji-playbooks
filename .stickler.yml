@@ -1,0 +1,3 @@
+linters:
+  ansible:
+    ignore: 'ANSIBLE0106,ANSIBLE0501'
