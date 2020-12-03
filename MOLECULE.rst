@@ -49,19 +49,21 @@ Clean up the local container image that molecule created::
 
   podman rmi localhost/molecule_local/centos:8
 
-Hints for parameterizing this and running it in TravisCI:
+Hints for parameterizing this and running it in CI:
 
 https://www.jeffgeerling.com/blog/2018/testing-your-ansible-roles-molecule
 
-Replicating Travis CI locally
+https://www.jeffgeerling.com/blog/2020/travis-cis-new-pricing-plan-threw-wrench-my-open-source-works
+
+Replicating GitHub Actions locally
 -----------------------------
 
-Travis CI runs the tests in an Ubuntu Focal VM. It can be tedious to push
-changes to Travis CI, wait, and review the output. You may want to set up your
+GitHub Actions runs the tests in an Ubuntu Focal VM. It can be tedious to push
+changes to GitHub, wait, and review the output. You may want to set up your
 own local Ubuntu Focal VM when making large changes that impact the tests.
 
 Follow these instructions to set up Docker on your own Ubuntu Focal VM in a
-similar way to Travis CI::
+similar way to GitHub Actions::
 
   sudo apt-get update
   sudo apt-get -y install docker.io

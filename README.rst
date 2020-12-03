@@ -1,5 +1,5 @@
-.. image:: https://travis-ci.com/ktdreyer/koji-playbooks.svg?branch=master
-             :target: https://travis-ci.com/ktdreyer/koji-playbooks
+.. image:: https://github.com/ktdreyer/koji-playbooks/workflows/tests/badge.svg
+             :target: https://github.com/ktdreyer/koji-playbooks/actions
 
 Ansible playbook(s) for automating the `Koji server install process
 <https://docs.pagure.org/koji/server_howto/>`_.

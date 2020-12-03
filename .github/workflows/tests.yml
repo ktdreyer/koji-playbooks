@@ -1,0 +1,57 @@
+name: tests
+
+on: [push, pull_request]
+
+jobs:
+  syntax-check:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clone koji-ansible
+      run: ./clone-koji-ansible
+    - name: Install ansible
+      run: |
+        sudo apt-get update
+        sudo apt-get purge ansible
+        sudo apt-get install python3-setuptools
+        pip3 install ansible --user
+    - name: ansible-playbook syntax check
+      run: |
+        export PATH=$PATH:$HOME/.local/bin
+        ansible-playbook -i localhost, setup-koji.yml --syntax-check
+  ansible-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clone koji-ansible
+      run: ./clone-koji-ansible
+    - name: Install ansible-lint
+      run: |
+        sudo apt-get update
+        sudo apt-get purge ansible
+        sudo apt-get install python3-setuptools
+        pip3 install ansible-lint --user
+    - name: Run ansible-lint
+      run: |
+        export PATH=$PATH:$HOME/.local/bin
+        ANSIBLE_LIBRARY=library ansible-lint -x 106 -x 501 -v roles/*
+  molecule:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clone koji-ansible
+      run: ./clone-koji-ansible
+    - name: Install molecule
+      run: |
+        sudo apt-get update
+        sudo apt-get purge ansible
+        sudo apt-get install python3-setuptools
+        pip3 install docker molecule[ansible,docker] --user
+    - name: Run molecule
+      run: |
+        export PATH=$PATH:$HOME/.local/bin
+        sudo systemctl start docker
+        sed -i -e 's/podman/docker/g' molecule/centos8/molecule.yml
+        export ANSIBLE_MODULE_UTILS=$(pwd)/module_utils
+        export ANSIBLE_LIBRARY=$(pwd)/library
+        molecule test -s centos8
