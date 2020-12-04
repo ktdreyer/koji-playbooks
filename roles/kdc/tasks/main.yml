@@ -7,8 +7,8 @@
       127.0.0.1   kojidev.example.com
     mode: 0644
   when:
-    - ansible_virtualization_type != "podman"
-    - ansible_virtualization_type != "docker"
+    # Docker, Podman, and containerd will mount /etc/hosts as RO tmpfs.
+    - ansible_mounts | selectattr('mount', 'equalto', '/etc/hosts') | list | length == 0
 
 - name: Install Kerberos packages
   package:
