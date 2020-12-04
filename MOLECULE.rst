@@ -70,4 +70,4 @@ similar way to Travis CI::
   # log out and log back in as "ubuntu" to get the new "docker" posix group.
 
   sudo apt-get -y install python3-pip
-  pip3 install molecule docker
+  pip3 install docker molecule[ansible,docker] --user
