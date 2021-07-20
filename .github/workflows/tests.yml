@@ -30,7 +30,7 @@ jobs:
         sudo apt-get update
         sudo apt-get purge ansible
         sudo apt-get install python3-setuptools
-        pip3 install ansible-lint --user
+        pip3 install ansible-lint[core] --user
     - name: Run ansible-lint
       run: |
         export PATH=$PATH:$HOME/.local/bin
