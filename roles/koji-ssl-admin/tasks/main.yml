@@ -9,10 +9,19 @@
     name: "{{ ssl_admin_prerequisites }}"
     state: present
 
+- name: clone koji-tools.git (rhel 7 compatible) # noqa latest[git]
+  git:
+    repo: https://pagure.io/koji-tools.git
+    dest: /usr/local/koji-tools
+    # RHEL 7 has Git v1.8.3.1, so it cannot do shallow clones with "depth: 1"
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
+
 - name: clone koji-tools.git  # noqa latest[git]
   git:
     repo: https://pagure.io/koji-tools.git
     dest: /usr/local/koji-tools
+    depth: 1
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int > 7
 
 - name: /etc/pki/koji directory
   file:
