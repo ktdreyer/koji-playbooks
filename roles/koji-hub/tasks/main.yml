@@ -145,7 +145,7 @@
 - name: grant apache selinux access to /mnt/koji
   sefcontext:
     target: "/mnt/koji(/.*)?"
-    setype: httpd_sys_rw_content_t
+    setype: public_content_rw_t
     state: present
   when:
     - ansible_selinux.status != "disabled"
