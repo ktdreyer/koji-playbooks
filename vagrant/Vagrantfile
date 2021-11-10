@@ -1,0 +1,33 @@
+# -*- mode: ruby -*-
+
+ENV['VAGRANT_DEFAULT_PROVIDER'] = 'libvirt'
+
+Vagrant.configure("2") do |config|
+  # Updates sort of lag here, see https://bugs.centos.org/view.php?id=18028
+  config.vm.box = "centos/stream8"
+  config.vm.box_check_update = false
+
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "vagrant.yml"
+  end
+
+  config.vm.provider :libvirt do |virt|
+    virt.storage :file, :size => '20G', :device => 'vdb'
+    virt.memory = 4096
+    virt.cpus = 2
+    virt.qemu_use_session = false
+  end
+
+  config.ssh.forward_agent = true
+
+  config.vm.define :kojidev do |node|
+     node.vm.hostname = 'kojidev'
+  end
+
+  # This creates a second NIC, which I do not want:
+  # config.vm.network :private_network, :ip => '192.168.121.100'
+  # Also there seems to be a bug with wrapping the network settings in a
+  # "provider" block:
+  # https://github.com/vagrant-libvirt/vagrant-libvirt/issues/1165
+
+end

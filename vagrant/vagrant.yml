@@ -1,0 +1,39 @@
+- name: manage Koji Vagrant VM
+  hosts: all
+  become: yes
+  become_method: sudo
+  pre_tasks:
+    - name: Install EPEL repo
+      yum:
+        name: epel-release
+        state: present
+    - name: create filesystem on /dev/vdb
+      filesystem:
+        fstype: ext4
+        dev: /dev/vdb
+    - name: mount /dev/vdb
+      mount:
+        fstype: ext4
+        src: /dev/vdb
+        path: /mnt
+        state: mounted
+    - name: create /mnt/mock directory
+      file:
+        path: /mnt/mock
+        state: directory
+        mode: 0755
+    - name: symlink /var/lib/mock to /mnt/mock
+      file:
+        src: /mnt/mock
+        dest: /var/lib/mock
+        state: link
+  roles:
+  - kdc
+  - koji-ssl-admin
+  - koji-client
+  - postgresql
+  - koji-hub
+  - koji-web
+  - koji-builder
+  - koji-ra
+  - koji-gc
