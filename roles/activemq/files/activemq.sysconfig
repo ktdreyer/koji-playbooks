@@ -1,0 +1,1 @@
+ACTIVEMQ_SSL_OPTS="-Djavax.net.debug=ssl,keymanager -Djavax.net.ssl.keyStoreType=pkcs12 -Djavax.net.ssl.keyStore=/opt/activemq/kojidev.example.com.pkcs12 -Djavax.net.ssl.keyStorePassword=kojipass -Djavax.net.ssl.trustStore=/opt/activemq/koji-ca.ks -Djavax.net.ssl.trustStorePassword=kojipass"

@@ -1,0 +1,103 @@
+- name: install prerequisites
+  package:
+    name:
+      - java-1.8.0-openjdk-headless
+      - python3-pyOpenSSL
+    state: present
+
+- name: create activemq user
+  user:
+    name: activemq
+    shell: /sbin/nologin
+
+- name: download activemq tarball
+  get_url:
+    url: "https://archive.apache.org/dist/activemq/{{ activemq_version }}/apache-activemq-{{ activemq_version }}-bin.tar.gz"
+    dest: "/tmp/apache-activemq-{{ activemq_version }}-bin.tar.gz"
+    checksum: "{{ activemq_checksum }}"
+  register: activemq_download
+
+- name: unpack activemq tarball  # noqa 503
+  unarchive:
+    src: "/tmp/apache-activemq-{{ activemq_version }}-bin.tar.gz"
+    dest: /opt
+    remote_src: yes
+    owner: activemq
+    group: activemq
+  when: activemq_download.changed
+
+- name: symlink /opt/activemq
+  file:
+    src: "/opt/apache-activemq-{{ activemq_version }}"
+    dest: /opt/activemq
+    state: link
+
+- name: copy /opt/activemq/conf/activemq.xml
+  copy:
+    src: files/activemq.xml
+    dest: /opt/activemq/conf/activemq.xml
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart activemq
+
+- name: install activemq systemd config file
+  copy:
+    src: files/activemq.sysconfig
+    dest: /etc/sysconfig/activemq
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart activemq
+
+- name: install activemq systemd unit file
+  copy:
+    src: files/activemq.service
+    dest: /etc/systemd/system/activemq.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - reload systemd
+
+- name: combine activemq server cert into a pkcs12 file
+  openssl_pkcs12:
+    path: /opt/activemq/kojidev.example.com.pkcs12
+    friendly_name: koji
+    privatekey_path: /etc/pki/koji/kojidev.example.com.key
+    certificate_path: /etc/pki/koji/kojidev.example.com.crt
+    other_certificates: /etc/pki/koji/koji-ca.crt
+    passphrase: kojipass
+    owner: activemq
+    group: activemq
+    mode: 0400
+    state: present
+
+# TODO: use https://docs.ansible.com/ansible/2.9/modules/java_cert_module.html
+# Verify with the -list command:
+# keytool -list -v -keystore /opt/activemq/koji-ca.ks
+- name: transform koji-ca.crt file to java keystore file
+  command:
+    argv:
+      - keytool
+      - -import
+      - -trustcacerts
+      - -alias
+      - kojica
+      - -file
+      - /etc/pki/koji/koji-ca.crt
+      - -keystore
+      - /opt/activemq/koji-ca.ks
+      - -storepass
+      - kojipass
+      - -noprompt
+    creates: /opt/activemq/koji-ca.ks
+
+
+- name: start activemq
+  service:
+    name: activemq
+    enabled: true
+    state: started
