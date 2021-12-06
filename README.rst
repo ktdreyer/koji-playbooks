@@ -90,6 +90,9 @@ Roles
 * ``roles/koji-gc`` - installs and configures the Koji garbage collector
   service.
 
+* ``roles/activemq`` - installs and configures an ActiveMQ 5 broker for testing
+  the Koji Hub protonmsg plugin.
+
 See Also
 --------
 

@@ -1,0 +1,9 @@
+# Pick up our custom sytemd unit file:
+- name: reload systemd
+  systemd:
+    daemon_reload: yes
+
+- name: restart activemq
+  service:
+    name: activemq
+    state: restarted

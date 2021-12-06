@@ -1,0 +1,20 @@
+[Unit]
+Description=Apache ActiveMQ
+After=network-online.target
+
+[Service]
+Type=forking
+WorkingDirectory=/opt/activemq/bin
+EnvironmentFile=/etc/sysconfig/activemq
+ExecStart=/opt/activemq/bin/activemq start
+ExecStop=/opt/activemq/bin/activemq stop
+Restart=on-abort
+User=activemq
+Group=activemq
+PIDFile=/opt/activemq/data/activemq.pid
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt
+
+[Install]
+WantedBy=multi-user.target
