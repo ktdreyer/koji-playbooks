@@ -5,4 +5,6 @@ set -eux
 git clone --depth 1 https://github.com/ktdreyer/koji-ansible
 pushd koji-ansible && git log HEAD -1 --no-decorate && popd
 ln -s koji-ansible/library/ library
+ln -s ../koji-ansible/library/ vagrant/library
 ln -s koji-ansible/module_utils/ module_utils
+ln -s ../koji-ansible/module_utils/ vagrant/module_utils
