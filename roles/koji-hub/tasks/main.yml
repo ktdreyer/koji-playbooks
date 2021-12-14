@@ -186,19 +186,23 @@
 - name: Configure the kojira user account
   koji_user:
     koji: kojidev
-    name: koji/kojira
+    name: kojira
     state: enabled
     permissions:
     - repo
+    krb_principals:
+    - koji/kojira@KOJIDEV.EXAMPLE.COM
   become: no
 
 - name: Configure the garbagecollector user account
   koji_user:
     koji: kojidev
-    name: koji/garbagecollector
+    name: garbagecollector
     state: enabled
     permissions:
     - admin
+    krb_principals:
+    - koji/garbagecollector@KOJIDEV.EXAMPLE.COM
   become: no
 
 - name: trashcan tag
