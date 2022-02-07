@@ -44,7 +44,6 @@ options:
      required: false
 requirements:
   - "python >= 2.7"
-  - "koji"
 '''
 
 EXAMPLES = '''
