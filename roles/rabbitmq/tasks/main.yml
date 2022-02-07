@@ -1,0 +1,78 @@
+# https://github.com/fedora-selinux/selinux-policy/pull/1053
+- name: Add yum repository for selinux-policy rabbitmq bug
+  yum_repository:
+    name: selinux-rabbitmq
+    description: work around selinux-rabbitmq bug
+    baseurl: https://fedorapeople.org/~ktdreyer/selinux-rabbitmq/
+    gpgcheck: no
+  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 8
+
+- name: update to latest selinux-policy packages for full rabbitmq support
+  package:
+    name:
+      - selinux-policy
+      - selinux-policy-targeted
+    state: latest
+
+- name: install centos repo for rabbitmq
+  package:
+    name: centos-release-rabbitmq-38
+    state: present
+
+- name: enable powertools
+  ini_file:
+    path: /etc/yum.repos.d/CentOS-Stream-PowerTools.repo
+    section: powertools
+    option: enabled
+    value: "1"
+
+- name: install rabbitmq-server
+  package:
+    name: rabbitmq-server
+    state: present
+
+- name: copy /etc/rabbitmq/rabbitmq.conf
+  copy:
+    src: files/rabbitmq.conf
+    dest: /etc/rabbitmq/rabbitmq.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart rabbitmq-server
+
+- name: enable rabbitmq plugins
+  rabbitmq_plugin:
+    names: rabbitmq_management,rabbitmq_auth_mechanism_ssl,rabbitmq_amqp1_0
+    state: enabled
+  notify:
+    - restart rabbitmq-server
+
+- name: start rabbitmq-server
+  service:
+    name: rabbitmq-server
+    enabled: true
+    state: started
+
+- name: remove rabbitmq guest user
+  rabbitmq_user:
+    user: guest
+    state: absent
+
+- name: add rabbitmq koji user
+  rabbitmq_user:
+    user: msg-producer-koji
+    vhost: /
+    configure_priv: .*
+    read_priv: .*
+    write_priv: .*
+    state: present
+
+- name: add read-only rabbitmq kdreyer user
+  rabbitmq_user:
+    user: kdreyer
+    vhost: /
+    configure_priv: ^$
+    read_priv: .*
+    write_priv: ^$
+    state: present

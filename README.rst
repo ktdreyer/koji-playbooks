@@ -93,6 +93,9 @@ Roles
 * ``roles/activemq`` - installs and configures an ActiveMQ 5 broker for testing
   the Koji Hub protonmsg plugin.
 
+* ``roles/rabbitmq`` - installs and configures a RabbitMQ broker for testing
+  the Koji Hub protonmsg plugin.
+
 See Also
 --------
 
