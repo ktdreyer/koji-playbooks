@@ -1,6 +1,6 @@
 Bring up a new server::
 
-    vagrant up
+    vagrant up --no-destroy-on-error
 
 Re-run the Ansible playbooks (if they failed, or if you changed something)::
 
