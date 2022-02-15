@@ -47,7 +47,7 @@ Review the container's systemd log output::
 
 Clean up the local container image that molecule created::
 
-  podman rmi localhost/molecule_local/centos:8
+    podman rmi localhost/molecule_local/centos:stream8
 
 Hints for parameterizing this and running it in CI:
 

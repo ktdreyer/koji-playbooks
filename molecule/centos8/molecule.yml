@@ -6,8 +6,8 @@ driver:
 platforms:
   - name: instance
     registry:
-      url: docker.io/library
-    image: centos:8
+      url: quay.io/centos
+    image: centos:stream8
     privileged: true
     command: "/usr/sbin/init"
     tty: True
