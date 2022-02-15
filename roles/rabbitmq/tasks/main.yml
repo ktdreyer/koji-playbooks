@@ -4,7 +4,7 @@
     name: selinux-rabbitmq
     description: work around selinux-rabbitmq bug
     baseurl: https://fedorapeople.org/~ktdreyer/selinux-rabbitmq/
-    gpgcheck: no
+    gpgcheck: false
   when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 8
 
 - name: update to latest selinux-policy packages for full rabbitmq support

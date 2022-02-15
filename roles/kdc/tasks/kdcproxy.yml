@@ -12,7 +12,7 @@
     name: bz1827758
     description: work around rhbz1827758
     baseurl: https://fedorapeople.org/~ktdreyer/bz1827758/
-    gpgcheck: no
+    gpgcheck: false
   when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 8
 
 - name: Install kdcproxy packages

@@ -27,8 +27,8 @@
 - name: allow httpd selinux access to write public_content_rw_t files
   seboolean:
     name: httpd_anon_write
-    state: yes
-    persistent: yes
+    state: true
+    persistent: true
   when:
     - ansible_selinux.status != "disabled"
   notify:
@@ -181,7 +181,7 @@
     channels:
       - default
       - createrepo
-  become: no
+  become: false
 
 - name: Configure the kojira user account
   koji_user:
@@ -192,7 +192,7 @@
       - repo
     krb_principals:
       - koji/kojira@KOJIDEV.EXAMPLE.COM
-  become: no
+  become: false
 
 - name: Configure the garbagecollector user account
   koji_user:
@@ -203,10 +203,10 @@
       - admin
     krb_principals:
       - koji/garbagecollector@KOJIDEV.EXAMPLE.COM
-  become: no
+  become: false
 
 - name: trashcan tag
   koji_tag:
     koji: kojidev
     name: trashcan
-  become: no
+  become: false

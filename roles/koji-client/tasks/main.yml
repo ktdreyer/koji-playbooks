@@ -24,7 +24,7 @@
 - name: determine unprivileged user
   set_fact:
     unprivileged_user: "{{ ansible_user }}"
-  become: no
+  become: false
 
 - name: determine unprivileged passwd info
   getent:

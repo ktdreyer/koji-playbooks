@@ -21,7 +21,7 @@
   unarchive:
     src: "/tmp/apache-activemq-{{ activemq_version }}-bin.tar.gz"
     dest: /opt
-    remote_src: yes
+    remote_src: true
     owner: activemq
     group: activemq
   when: activemq_download.changed
