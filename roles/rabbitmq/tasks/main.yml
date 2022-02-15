@@ -25,6 +25,9 @@
     section: powertools
     option: enabled
     value: "1"
+    owner: root
+    group: root
+    mode: 0644
 
 - name: install rabbitmq-server
   package:
