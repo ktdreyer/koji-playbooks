@@ -12,15 +12,3 @@
         mirrorlist: https://mirrors.fedoraproject.org/mirrorlist?repo=epel-8&arch=$basearch
         gpgcheck: true
         gpgkey: https://archive.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
-
-    # If the host has IPv6, when DNF runs in a podman container, it will try to
-    # contact a server (eg. fedorapeople.org) via IPv6 and fail. There are
-    # several open bugs about podman and IPv6 compatibility, and I can't tell
-    # exactly which one relates to this issue. Eventually we should attempt to
-    # remove this to see if things have improved in newer podman versions.
-    - name: Disable IPv6
-      sysctl:
-        name: net.ipv6.conf.all.disable_ipv6
-        value: "1"
-        state: present
-        reload: yes
