@@ -19,9 +19,9 @@
 - name: Install Koji packages
   package:
     name:
-    - koji-hub
-    - mod_ssl
-    - mod_auth_gssapi
+      - koji-hub
+      - mod_ssl
+      - mod_auth_gssapi
     state: present
 
 - name: allow httpd selinux access to write public_content_rw_t files
@@ -32,7 +32,7 @@
   when:
     - ansible_selinux.status != "disabled"
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: create koji user
   user:
@@ -43,15 +43,15 @@
   postgresql_user:
     name: koji
     password: test
-    #priv: "CONNECT/koji:ALL"
-    #login_unix_socket: /var/run/postgresql
+    # priv: "CONNECT/koji:ALL"
+    # login_unix_socket: /var/run/postgresql
   become_user: postgres
 
 - name: create postgres koji database
   postgresql_db:
     name: koji
     owner: koji
-    #login_unix_socket: /var/run/postgresql
+    # login_unix_socket: /var/run/postgresql
   become_user: postgres
 
 - name: check if database for app needs populating
@@ -94,7 +94,7 @@
   when:
     - ansible_selinux.status != "disabled"
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: grant apache read access to HTTP keytab
   file:
@@ -104,7 +104,7 @@
     mode: 0640
     setype: httpd_config_t
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: copy mod_ssl config
   copy:
@@ -114,7 +114,7 @@
     group: root
     mode: 0644
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: copy /etc/httpd/conf.d/kojihub.conf
   copy:
@@ -124,7 +124,7 @@
     group: root
     mode: 0644
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: copy /etc/koji-hub/hub.conf
   copy:
@@ -134,7 +134,7 @@
     group: root
     mode: 0644
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: start httpd
   service:
@@ -179,8 +179,8 @@
     arches: [x86_64]
     state: enabled
     channels:
-    - default
-    - createrepo
+      - default
+      - createrepo
   become: no
 
 - name: Configure the kojira user account
@@ -189,9 +189,9 @@
     name: kojira
     state: enabled
     permissions:
-    - repo
+      - repo
     krb_principals:
-    - koji/kojira@KOJIDEV.EXAMPLE.COM
+      - koji/kojira@KOJIDEV.EXAMPLE.COM
   become: no
 
 - name: Configure the garbagecollector user account
@@ -200,9 +200,9 @@
     name: garbagecollector
     state: enabled
     permissions:
-    - admin
+      - admin
     krb_principals:
-    - koji/garbagecollector@KOJIDEV.EXAMPLE.COM
+      - koji/garbagecollector@KOJIDEV.EXAMPLE.COM
   become: no
 
 - name: trashcan tag

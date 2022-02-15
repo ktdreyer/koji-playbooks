@@ -11,7 +11,7 @@
     group: root
     mode: 0644
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: copy /etc/kojiweb/web.conf
   copy:
@@ -21,7 +21,7 @@
     group: root
     mode: 0644
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: grant apache selinux access to kojiweb keytab
   sefcontext:
@@ -31,7 +31,7 @@
   when:
     - ansible_selinux.status != "disabled"
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: grant apache read access to kojiweb keytab
   file:
@@ -41,7 +41,7 @@
     mode: 0640
     setype: httpd_config_t
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: allow httpd selinux access to contact kerberos and koji-hub
   seboolean:
@@ -51,4 +51,4 @@
   when:
     - ansible_selinux.status != "disabled"
   notify:
-  - restart httpd
+    - restart httpd

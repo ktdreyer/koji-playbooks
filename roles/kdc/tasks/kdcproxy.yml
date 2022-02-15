@@ -18,10 +18,10 @@
 - name: Install kdcproxy packages
   package:
     name:
-    - httpd
-    - mod_ssl
-    - "{{ mod_wsgi }}"
-    - "{{ python_kdcproxy }}"
+      - httpd
+      - mod_ssl
+      - "{{ mod_wsgi }}"
+      - "{{ python_kdcproxy }}"
     state: present
 
 - name: copy /etc/httpd/conf.d/kdcproxy.conf
@@ -32,7 +32,7 @@
     group: root
     mode: 0644
   notify:
-  - restart httpd
+    - restart httpd
 
 - name: copy /etc/kdcproxy.conf
   copy:
@@ -42,4 +42,4 @@
     group: root
     mode: 0644
   notify:
-  - restart httpd
+    - restart httpd

@@ -3,8 +3,8 @@
 - name: Install Koji client packages
   package:
     name:
-    - koji
-    - krb5-workstation
+      - koji
+      - krb5-workstation
     state: present
 
 - name: copy koji client profile configuration

@@ -14,8 +14,8 @@
 - name: Install Kerberos packages
   package:
     name:
-    - krb5-server
-    - krb5-workstation
+      - krb5-server
+      - krb5-workstation
     state: present
 
 - name: copy /etc/krb5.conf
@@ -26,7 +26,7 @@
     group: root
     mode: 0644
   notify:
-  - restart krb5kdc
+    - restart krb5kdc
 
 - name: copy /var/kerberos/krb5kdc/kdc.conf
   copy:
@@ -36,7 +36,7 @@
     group: root
     mode: 0600
   notify:
-  - restart krb5kdc
+    - restart krb5kdc
 
 - name: configure /var/kerberos/krb5kdc/kadm5.acl
   copy:
@@ -73,15 +73,15 @@
     name: "{{ item }}"
     keytab: "/var/local/{{ item | replace ('/', '.') }}.keytab"
   with_items:
-  - kdreyer
-  - rcm/debbuild
-  - HTTP/kojidev.example.com
-  - compile/kojidev.example.com
-  - koji/kojiweb
-  - koji/kojira
-  - koji/garbagecollector
+    - kdreyer
+    - rcm/debbuild
+    - HTTP/kojidev.example.com
+    - compile/kojidev.example.com
+    - koji/kojiweb
+    - koji/kojira
+    - koji/garbagecollector
   tags:
-  - krb_account
+    - krb_account
 
 - name: set up kdcproxy
   include: kdcproxy.yml
