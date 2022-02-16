@@ -5,7 +5,7 @@
     # See /usr/lib/rpm/macros.d/macros.python2 for %python2_sitelib
     python_sitelib: /usr/lib/python2.7/site-packages
     mod_wsgi: mod_wsgi
-  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 7
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
 
 - name: Add yum repository to work around rhbz1827758 for el8
   yum_repository:
@@ -13,7 +13,7 @@
     description: work around rhbz1827758
     baseurl: https://fedorapeople.org/~ktdreyer/bz1827758/
     gpgcheck: false
-  when: ansible_distribution_file_variety == "RedHat" and ansible_distribution_major_version|int == 8
+  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 8
 
 - name: Install kdcproxy packages
   package:
