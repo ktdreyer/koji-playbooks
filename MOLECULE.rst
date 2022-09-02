@@ -60,7 +60,7 @@ Replicating GitHub Actions locally
 
 GitHub Actions runs the tests in an Ubuntu Focal VM. It can be tedious to push
 changes to GitHub, wait, and review the output. You may want to set up your
-own local Ubuntu Focal VM when making large changes that impact the tests.
+own local Ubuntu Jammy VM when making large changes that impact the tests.
 
 Follow these instructions to set up Docker on your own Ubuntu Focal VM in a
 similar way to GitHub Actions::
