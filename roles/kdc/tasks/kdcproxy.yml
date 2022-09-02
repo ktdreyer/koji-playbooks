@@ -23,7 +23,7 @@
       - "{{ mod_wsgi }}"
       - "{{ python_kdcproxy }}"
     state: present
-  retries: 3
+  retries: 10
   delay: 10
 
 - name: copy /etc/httpd/conf.d/kdcproxy.conf

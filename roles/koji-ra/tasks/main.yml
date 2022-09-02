@@ -13,7 +13,7 @@
       - python2-kerberos
     state: latest  # noqa package-latest
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
-  retries: 3
+  retries: 10
   delay: 10
 
 - name: Install Koji utils package
