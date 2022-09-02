@@ -1,5 +1,7 @@
 ---
 skip_list:
   - fqcn-builtins
+  - jinja
+  - name[casing]
   - risky-file-permissions
   - role-name
