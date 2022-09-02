@@ -1,18 +1,10 @@
 # https://github.com/fedora-selinux/selinux-policy/pull/1053
-- name: Add yum repository for selinux-policy rabbitmq bug
-  yum_repository:
-    name: selinux-rabbitmq
-    description: work around selinux-rabbitmq bug
-    baseurl: https://fedorapeople.org/~ktdreyer/selinux-rabbitmq/
-    gpgcheck: false
-  when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 8
-
-- name: update to latest selinux-policy packages for full rabbitmq support
-  package:
-    name:
-      - selinux-policy
-      - selinux-policy-targeted
-    state: latest  # noqa package-latest
+- name: Allow RabbitMQ to listen on tcp port 15671
+  seport:
+    ports: 15671
+    proto: tcp
+    setype: rabbitmq_port_t
+    state: present
 
 - name: install centos repo for rabbitmq
   package:
