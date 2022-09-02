@@ -58,21 +58,19 @@ https://www.jeffgeerling.com/blog/2020/travis-cis-new-pricing-plan-threw-wrench-
 Replicating GitHub Actions locally
 -----------------------------
 
-GitHub Actions runs the tests in an Ubuntu Focal VM. It can be tedious to push
+GitHub Actions runs the tests in an Ubuntu Jammy VM. It can be tedious to push
 changes to GitHub, wait, and review the output. You may want to set up your
 own local Ubuntu Jammy VM when making large changes that impact the tests.
 
-Follow these instructions to set up Docker on your own Ubuntu Focal VM in a
+Follow these instructions to set up Podman on your own Ubuntu Jammy VM in a
 similar way to GitHub Actions::
 
   sudo apt-get update
-  sudo apt-get -y install docker.io
-  sudo systemctl enable --now docker
-  sudo usermod -aG docker ubuntu
-  # log out and log back in as "ubuntu" to get the new "docker" posix group.
+  # follow the steps in .github/workflows/...
 
   sudo apt-get -y install python3-pip
-  pip3 install docker molecule[ansible,docker] --user
+  pip3 install molecule[ansible,podman] --user
+
 
 Versioning
 ----------
