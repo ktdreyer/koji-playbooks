@@ -11,7 +11,7 @@
     name:
       - python-requests-kerberos
       - python2-kerberos
-    state: latest  # noqa 403
+    state: latest  # noqa package-latest
   when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 7
 
 - name: Install Koji builder packages
@@ -39,7 +39,7 @@
     state: link
   register: koji_ca_anchor
 
-- name: trust our new Koji CA system-wide  # noqa 503
+- name: trust our new Koji CA system-wide  # noqa no-handler
   command: update-ca-trust extract
   when: koji_ca_anchor.changed
   notify:

@@ -9,7 +9,7 @@
     name: "{{ ssl_admin_prerequisites }}"
     state: present
 
-- name: clone koji-tools.git  # noqa 401
+- name: clone koji-tools.git  # noqa latest[git]
   git:
     repo: https://pagure.io/koji-tools.git
     dest: /usr/local/koji-tools
