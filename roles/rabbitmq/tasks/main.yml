@@ -12,7 +12,7 @@
     name:
       - selinux-policy
       - selinux-policy-targeted
-    state: latest  # noqa 403
+    state: latest  # noqa package-latest
 
 - name: install centos repo for rabbitmq
   package:

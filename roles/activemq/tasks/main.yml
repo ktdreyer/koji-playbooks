@@ -17,7 +17,7 @@
     checksum: "{{ activemq_checksum }}"
   register: activemq_download
 
-- name: unpack activemq tarball  # noqa 503
+- name: unpack activemq tarball  # noqa no-handler
   unarchive:
     src: "/tmp/apache-activemq-{{ activemq_version }}-bin.tar.gz"
     dest: /opt

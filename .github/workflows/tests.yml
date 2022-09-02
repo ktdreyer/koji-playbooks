@@ -34,7 +34,7 @@ jobs:
     - name: Run ansible-lint
       run: |
         export PATH=$PATH:$HOME/.local/bin
-        ANSIBLE_LIBRARY=library ansible-lint -x 106 -x 501 -v roles/*
+        ANSIBLE_LIBRARY=library ansible-lint -v roles/*
   molecule:
     runs-on: ubuntu-20.04
     steps:
