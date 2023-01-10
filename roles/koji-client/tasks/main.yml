@@ -35,7 +35,7 @@
   set_fact:
     unprivileged_uid: "{{ getent_passwd[unprivileged_user][1] }}"
 
-- name: "create /var/kerberos/krb5/user/{{ unprivileged_uid }} directories"
+- name: "create directory /var/kerberos/krb5/user/{{ unprivileged_uid }}"
   file:
     path: "/var/kerberos/krb5/user/{{ unprivileged_uid }}"
     state: directory
