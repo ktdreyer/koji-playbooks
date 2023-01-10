@@ -84,4 +84,4 @@
     - krb_account
 
 - name: set up kdcproxy
-  include: kdcproxy.yml
+  include_tasks: kdcproxy.yml
