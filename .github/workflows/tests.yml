@@ -6,7 +6,7 @@ jobs:
   syntax-check:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Clone koji-ansible
       run: ./clone-koji-ansible
     - name: Install ansible
@@ -22,7 +22,7 @@ jobs:
   ansible-lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Clone koji-ansible
       run: ./clone-koji-ansible
     - name: Install ansible-lint
@@ -38,7 +38,7 @@ jobs:
   molecule:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Clone koji-ansible
       run: ./clone-koji-ansible
     - name: Install podman and molecule
