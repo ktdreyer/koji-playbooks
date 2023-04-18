@@ -44,6 +44,7 @@
 - name: trust our new Koji CA system-wide  # noqa no-handler
   command: update-ca-trust extract
   when: koji_ca_anchor.changed
+  changed_when: true
   notify:
     - restart kojid
 

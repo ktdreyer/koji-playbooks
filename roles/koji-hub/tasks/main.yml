@@ -68,6 +68,7 @@
   args:
     executable: /bin/bash
   when: database_is_populated.failed
+  changed_when: true
   become_user: koji
 
 - name: insert kdreyer as a user
