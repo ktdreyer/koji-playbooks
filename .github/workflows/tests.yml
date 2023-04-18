@@ -34,6 +34,7 @@ jobs:
     - name: Run ansible-lint
       run: |
         export PATH=$PATH:$HOME/.local/bin
+        ansible-galaxy collection install -r requirements.yml
         ANSIBLE_LIBRARY=library ansible-lint -v roles/*
   molecule:
     runs-on: ubuntu-22.04
