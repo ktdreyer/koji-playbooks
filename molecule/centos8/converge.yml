@@ -10,8 +10,7 @@
       yum_repository:
         name: epel
         description: epel
-        baseurl: https://download.fedoraproject.org/pub/epel/8/Everything/$basearch/
-        mirrorlist: https://mirrors.fedoraproject.org/mirrorlist?repo=epel-8&arch=$basearch
+        metalink: https://mirrors.fedoraproject.org/metalink?repo=epel-8&arch=$basearch
         gpgcheck: true
         gpgkey: https://archive.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-8
   roles:
