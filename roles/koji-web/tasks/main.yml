@@ -9,7 +9,7 @@
     dest: /etc/httpd/conf.d/kojiweb.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart httpd
 
@@ -19,7 +19,7 @@
     dest: /etc/kojiweb/web.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart httpd
 
@@ -38,7 +38,7 @@
     path: /var/local/koji.kojiweb.keytab
     owner: root
     group: apache
-    mode: 0640
+    mode: "0640"
     setype: httpd_config_t
   notify:
     - restart httpd

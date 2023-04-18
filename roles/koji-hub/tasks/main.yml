@@ -101,7 +101,7 @@
     path: /var/local/HTTP.kojidev.example.com.keytab
     owner: root
     group: apache
-    mode: 0640
+    mode: "0640"
     setype: httpd_config_t
   notify:
     - restart httpd
@@ -112,7 +112,7 @@
     dest: /etc/httpd/conf.d/ssl.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart httpd
 
@@ -122,7 +122,7 @@
     dest: /etc/httpd/conf.d/kojihub.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart httpd
 
@@ -132,7 +132,7 @@
     dest: /etc/koji-hub/hub.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart httpd
 
@@ -154,7 +154,7 @@
   file:
     path: /mnt/koji/{{ item }}
     state: directory
-    mode: 0755
+    mode: "0755"
     owner: apache
     group: apache
     setype: public_content_rw_t

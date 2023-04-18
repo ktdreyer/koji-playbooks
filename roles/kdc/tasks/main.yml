@@ -5,7 +5,7 @@
       127.0.0.1   localhost
       ::1         localhost
       127.0.0.1   kojidev.example.com
-    mode: 0644
+    mode: "0644"
   when:
     - ansible_virtualization_type | default('') not in ['docker', 'podman', 'container', 'containerd']
     # Docker, Podman, and containerd will mount /etc/hosts as RO tmpfs.
@@ -24,7 +24,7 @@
     dest: /etc/krb5.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart krb5kdc
 
@@ -34,7 +34,7 @@
     dest: /var/kerberos/krb5kdc/kdc.conf
     owner: root
     group: root
-    mode: 0600
+    mode: "0600"
   notify:
     - restart krb5kdc
 
@@ -43,7 +43,7 @@
     dest: /var/kerberos/krb5kdc/kadm5.acl
     owner: root
     group: root
-    mode: 0600
+    mode: "0600"
     content: |
       */admin@KOJIDEV.EXAMPLE.COM *
   notify:

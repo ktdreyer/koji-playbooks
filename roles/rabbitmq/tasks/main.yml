@@ -19,7 +19,7 @@
     value: "1"
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 - name: install rabbitmq-server
   package:
@@ -32,7 +32,7 @@
     dest: /etc/rabbitmq/rabbitmq.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart rabbitmq-server
 

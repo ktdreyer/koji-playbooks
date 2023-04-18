@@ -38,7 +38,7 @@
     dest: /opt/activemq/conf/activemq.xml
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart activemq
 
@@ -48,7 +48,7 @@
     dest: /etc/sysconfig/activemq
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - restart activemq
 
@@ -58,7 +58,7 @@
     dest: /etc/systemd/system/activemq.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
   notify:
     - reload systemd
 
@@ -72,7 +72,7 @@
     passphrase: kojipass
     owner: activemq
     group: activemq
-    mode: 0400
+    mode: "0400"
     state: present
 
 # TODO: use https://docs.ansible.com/ansible/2.9/modules/java_cert_module.html

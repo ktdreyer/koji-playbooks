@@ -13,7 +13,7 @@
     dest: /etc/koji.conf.d/kojidev.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 - name: symlink "kojidev" alias for this profile
   file:
@@ -39,7 +39,7 @@
   file:
     path: "/var/kerberos/krb5/user/{{ unprivileged_uid }}"
     state: directory
-    mode: 0700
+    mode: "0700"
     owner: "{{ unprivileged_user }}"
 
 - name: symlink kdreyer.keytab for unprivileged user
