@@ -5,3 +5,5 @@ collections:
   - community.general
   - community.postgresql
   - community.rabbitmq
+  # Note: CI tests (GitHub Actions) use a Git clone of ktdreyer.koji_ansible
+  # intead of requiring it here.
