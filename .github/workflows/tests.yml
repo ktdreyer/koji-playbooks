@@ -52,7 +52,7 @@ jobs:
         sudo apt-get install podman python3-setuptools
         sudo mkdir -p /etc/containers
         echo 'cgroup_manager="cgroupfs"' | sudo tee /etc/containers/libpod.conf
-        pip3 install molecule[ansible,podman] --user
+        pip3 install molecule molecule-plugins[podman] --user
     - name: Run molecule
       run: |
         export PATH=$PATH:$HOME/.local/bin
