@@ -5,9 +5,6 @@ Simple one-shot create/run example::
 
     molecule test -s centos8
 
-I encountered problems with centos7 that took a while to track down
-(https://github.com/containers/libpod/issues/6183).
-
 To debug molecule, set the ``MOLECULE_NO_LOG=false`` environment variable and
 add the ``--debug`` command-line option. For example::
 
