@@ -174,7 +174,7 @@
     state: link
 
 - name: Configure the new builder on the hub
-  koji_host:
+  ktdreyer.koji_ansible.koji_host:
     koji: kojidev
     name: kojidev.example.com
     arches: [x86_64]
@@ -185,7 +185,7 @@
   become: false
 
 - name: Configure the kojira user account
-  koji_user:
+  ktdreyer.koji_ansible.koji_user:
     koji: kojidev
     name: kojira
     state: enabled
@@ -196,7 +196,7 @@
   become: false
 
 - name: Configure the garbagecollector user account
-  koji_user:
+  ktdreyer.koji_ansible.koji_user:
     koji: kojidev
     name: garbagecollector
     state: enabled
@@ -207,7 +207,7 @@
   become: false
 
 - name: trashcan tag
-  koji_tag:
+  ktdreyer.koji_ansible.koji_tag:
     koji: kojidev
     name: trashcan
   become: false
