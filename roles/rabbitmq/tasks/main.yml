@@ -27,7 +27,7 @@
     state: present
 
 - name: copy /etc/rabbitmq/rabbitmq.conf
-  copy:
+  template:
     src: files/rabbitmq.conf
     dest: /etc/rabbitmq/rabbitmq.conf
     owner: root

@@ -4,7 +4,7 @@
     state: present
 
 - name: copy /etc/httpd/conf.d/kojiweb.conf
-  copy:
+  template:
     src: files/kojiweb.conf
     dest: /etc/httpd/conf.d/kojiweb.conf
     owner: root
@@ -14,7 +14,7 @@
     - restart httpd
 
 - name: copy /etc/kojiweb/web.conf
-  copy:
+  template:
     src: files/web.conf
     dest: /etc/kojiweb/web.conf
     owner: root

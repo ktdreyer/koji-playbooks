@@ -89,7 +89,7 @@
 
 - name: grant apache selinux access to HTTP keytab
   sefcontext:
-    target: /var/local/HTTP.kojidev.example.com.keytab
+    target: "/var/local/HTTP.kojidev.{{ KOJI_DOMAIN }}.keytab"
     setype: httpd_config_t
     state: present
   when:
@@ -99,7 +99,7 @@
 
 - name: grant apache read access to HTTP keytab
   file:
-    path: /var/local/HTTP.kojidev.example.com.keytab
+    path: "/var/local/HTTP.kojidev.{{ KOJI_DOMAIN }}.keytab"
     owner: root
     group: apache
     mode: "0640"
@@ -108,8 +108,8 @@
     - restart httpd
 
 - name: copy mod_ssl config
-  copy:
-    src: files/ssl.conf
+  template:
+    src: templates/ssl.conf
     dest: /etc/httpd/conf.d/ssl.conf
     owner: root
     group: root
@@ -118,8 +118,8 @@
     - restart httpd
 
 - name: copy /etc/httpd/conf.d/kojihub.conf
-  copy:
-    src: files/kojihub.conf
+  template:
+    src: templates/kojihub.conf
     dest: /etc/httpd/conf.d/kojihub.conf
     owner: root
     group: root
@@ -128,8 +128,8 @@
     - restart httpd
 
 - name: copy /etc/koji-hub/hub.conf
-  copy:
-    src: files/hub.conf
+  template:
+    src: templates/hub.conf
     dest: /etc/koji-hub/hub.conf
     owner: root
     group: root
@@ -176,7 +176,7 @@
 - name: Configure the new builder on the hub
   koji_host:
     koji: kojidev
-    name: kojidev.example.com
+    name: "kojidev.{{ KOJI_DOMAIN }}"
     arches: [x86_64]
     state: enabled
     channels:
@@ -192,7 +192,7 @@
     permissions:
       - repo
     krb_principals:
-      - koji/kojira@KOJIDEV.EXAMPLE.COM
+      - "koji/kojira@KOJIDEV.{{ KOJI_DOMAIN | upper }}"
   become: false
 
 - name: Configure the garbagecollector user account
@@ -203,7 +203,7 @@
     permissions:
       - admin
     krb_principals:
-      - koji/garbagecollector@KOJIDEV.EXAMPLE.COM
+      - "koji/garbagecollector@KOJIDEV.{{ KOJI_DOMAIN | upper }}"
   become: false
 
 - name: trashcan tag

@@ -44,8 +44,8 @@
     argv:
       - /usr/local/koji-tools/src/bin/koji-ssl-admin
       - server-csr
-      - kojidev.example.com
-    creates: /etc/pki/koji/kojidev.example.com.csr
+      - kojidev.{{ KOJI_DOMAIN }}
+    creates: /etc/pki/koji/kojidev.{{ KOJI_DOMAIN }}.csr
     chdir: /etc/pki/koji/
 
 - name: Sign Server CSR
@@ -53,6 +53,6 @@
     argv:
       - /usr/local/koji-tools/src/bin/koji-ssl-admin
       - sign
-      - kojidev.example.com.csr
-    creates: /etc/pki/koji/kojidev.example.com.chain.crt
+      - kojidev.{{ KOJI_DOMAIN }}.csr
+    creates: /etc/pki/koji/kojidev.{{ KOJI_DOMAIN }}.chain.crt
     chdir: /etc/pki/koji/

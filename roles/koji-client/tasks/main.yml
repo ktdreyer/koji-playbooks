@@ -8,8 +8,8 @@
     state: present
 
 - name: copy koji client profile configuration
-  copy:
-    src: files/kojidev.conf
+  template:
+    src: templates/kojidev.conf
     dest: /etc/koji.conf.d/kojidev.conf
     owner: root
     group: root
