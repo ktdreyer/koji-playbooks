@@ -74,6 +74,7 @@
     keytab: "/var/local/{{ item | replace ('/', '.') }}.keytab"
   with_items:
     - kdreyer
+    - builder
     - rcm/debbuild
     - "HTTP/kojidev.{{ KOJI_DOMAIN }}"
     - "compile/kojidev.{{ KOJI_DOMAIN }}"

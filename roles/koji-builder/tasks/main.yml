@@ -23,7 +23,7 @@
 
 - name: copy /etc/kojid/kojid.conf
   template:
-    src: templates/kojid.conf
+    src: kojid.conf
     dest: /etc/kojid/kojid.conf
     owner: root
     group: root

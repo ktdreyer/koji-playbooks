@@ -63,9 +63,9 @@
     write_priv: .*
     state: present
 
-- name: add read-only rabbitmq kdreyer user
+- name: add read-only rabbitmq {{ KOJI_USER }} user
   rabbitmq_user:
-    user: kdreyer
+    user: "{{ KOJI_USER }}"
     vhost: /
     configure_priv: ^$
     read_priv: .*

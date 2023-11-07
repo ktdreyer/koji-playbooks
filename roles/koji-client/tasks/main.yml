@@ -1,5 +1,11 @@
 # Set up the client for authentication
 
+- name: Install epel repository required by koji
+  package:
+    name:
+      - epel-release
+    state: present
+
 - name: Install Koji client packages
   package:
     name:
@@ -42,13 +48,13 @@
     mode: "0700"
     owner: "{{ unprivileged_user }}"
 
-- name: symlink kdreyer.keytab for unprivileged user
+- name: symlink {{ KOJI_USER }}.keytab for unprivileged user
   file:
-    src: /var/local/kdreyer.keytab
+    src: "/var/local/{{ KOJI_USER }}.keytab"
     dest: "/var/kerberos/krb5/user/{{ unprivileged_uid }}/client.keytab"
     state: link
 
 - name: make keytab readable by unprivileged user
   file:
-    path: /var/local/kdreyer.keytab
+    path: "/var/local/{{ KOJI_USER }}.keytab"
     owner: "{{ unprivileged_user }}"

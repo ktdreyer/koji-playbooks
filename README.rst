@@ -37,26 +37,35 @@ SSL configuration
   https://kojidev.<domain>/kojifiles/koji-ca.crt . External Koji clients
   can download this file to verify the HTTPS connections.
 
-Hard-coded things
------------------
-
-This is a santized code drop from a set of internal playbooks, so several
-things are currently hard-coded:
-
-* The main username is hardcoded in several places as "kdreyer".
-
 Configure deploy
 ----------------
+
+Prepare
+
+- Disable selinux
+- Disable firewalld
+- Install python3 package on the destination system.
+- Copy SSH public key
 
 KOJI Domain
 
 Domain can be configured in `setup-koji.yml` with variable `KOJI_DOMAIN`.domain
 For example,
 
-```
+.. code-block:: yaml
   vars:
     KOJI_DOMAIN: stackwebservices.com
-```
+
+The main username
+
+The main username is specified in `setup-koji.yml` file:
+
+For example,
+
+.. code-block:: yaml
+  vars:
+    KOJI_USER: ktdreyer
+
 
 Inventory
 

@@ -71,15 +71,15 @@
   changed_when: true
   become_user: koji
 
-- name: insert kdreyer as a user
+- name: insert {{ KOJI_USER }} as a user
   postgresql_query:
     db: koji
     login_user: koji
-    query: "INSERT INTO users (name, status, usertype) VALUES ('kdreyer', 0, 0);"
+    query: "INSERT INTO users (name, status, usertype) VALUES ('{{ KOJI_USER }}', 0, 0);"
   when: database_is_populated.failed
   become_user: koji
 
-- name: grant kdreyer admin rights
+- name: grant {{ KOJI_USER }} admin rights
   postgresql_query:
     db: koji
     login_user: koji
