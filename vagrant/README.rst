@@ -20,7 +20,7 @@ Pull down an updated CentOS image from Vagrant Cloud::
 
 Or use a centos.org snapshot::
 
-  vagrant box add --name centos/stream8 -f https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20220913.0.x86_64.vagrant-libvirt.box
+  vagrant box add --name centos/stream8 -f https://cloud.centos.org/centos/8-stream/x86_64/images/CentOS-Stream-Vagrant-8-20230925.0.x86_64.vagrant-libvirt.box
 
 Note that you must destroy and rebuild your Vagrant VMs to make use of this newer image::
 
