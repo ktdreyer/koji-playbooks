@@ -2,6 +2,9 @@
   hosts: all
   become: yes
   become_method: sudo
+  vars:
+    KOJI_USER: ktdreyer
+    KOJI_DOMAIN: example.com
   roles:
   - kdc
   - koji-ssl-admin

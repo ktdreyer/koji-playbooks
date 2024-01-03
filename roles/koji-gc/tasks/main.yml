@@ -4,8 +4,8 @@
     state: present
 
 - name: copy /etc/koji-gc/koji-gc.conf
-  copy:
-    src: files/koji-gc.conf
+  template:
+    src: templates/koji-gc.conf
     dest: /etc/koji-gc/koji-gc.conf
     owner: root
     group: root

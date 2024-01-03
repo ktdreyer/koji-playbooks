@@ -22,8 +22,8 @@
     state: present
 
 - name: copy /etc/kojid/kojid.conf
-  copy:
-    src: files/kojid.conf
+  template:
+    src: kojid.conf
     dest: /etc/kojid/kojid.conf
     owner: root
     group: root

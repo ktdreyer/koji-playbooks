@@ -27,26 +27,51 @@ SSL configuration
     * ``/etc/pki/koji/koji-ca.key``
 
   The Apache web server HTTPS keypair (signed by koji-ca above):
-    * ``/etc/pki/koji/kojidev.example.com.chain.crt``
-    * ``/etc/pki/koji/kojidev.example.com.key``
+    * ``/etc/pki/koji/kojidev.<domain>.chain.crt``
+    * ``/etc/pki/koji/kojidev.<domain>.key``
 
   For GSSAPI (Kerberos) authentication, these are the only SSL certs you will
   need.
 
   The koji-hub role publishes the Koji CA at the following URL:
-  https://kojidev.example.com/kojifiles/koji-ca.crt . External Koji clients
+  https://kojidev.<domain>/kojifiles/koji-ca.crt . External Koji clients
   can download this file to verify the HTTPS connections.
 
-Hard-coded things
------------------
+Configure deploy
+----------------
 
-This is a santized code drop from a set of internal playbooks, so several
-things are currently hard-coded:
+Prepare
 
-* The hostname is hardcoded in several places as "kojidev.example.com".
+- Disable selinux
+- Disable firewalld
+- Install python3 package on the destination system.
+- Copy SSH public key
 
-* The main username is hardcoded in several places as "kdreyer".
+KOJI Domain
 
+Domain can be configured in `setup-koji.yml` with variable `KOJI_DOMAIN`.domain
+For example,
+
+.. code-block:: yaml
+  vars:
+    KOJI_DOMAIN: stackwebservices.com
+
+The main username
+
+The main username is specified in `setup-koji.yml` file:
+
+For example,
+
+.. code-block:: yaml
+  vars:
+    KOJI_USER: ktdreyer
+
+
+Inventory
+
+```
+cp inventory.ini.tpl inventory.ini
+```
 
 Roles
 -----
