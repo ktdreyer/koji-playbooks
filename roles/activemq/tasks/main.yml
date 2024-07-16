@@ -43,8 +43,8 @@
     - restart activemq
 
 - name: install activemq systemd config file
-  copy:
-    src: files/activemq.sysconfig
+  template:
+    src: templates/activemq.sysconfig
     dest: /etc/sysconfig/activemq
     owner: root
     group: root
@@ -64,10 +64,10 @@
 
 - name: combine activemq server cert into a pkcs12 file
   openssl_pkcs12:
-    path: /opt/activemq/kojidev.example.com.pkcs12
+    path: "/opt/activemq/kojidev.{{ KOJI_DOMAIN }}.pkcs12"
     friendly_name: koji
-    privatekey_path: /etc/pki/koji/kojidev.example.com.key
-    certificate_path: /etc/pki/koji/kojidev.example.com.crt
+    privatekey_path: "/etc/pki/koji/kojidev.{{ KOJI_DOMAIN }}.key"
+    certificate_path: "/etc/pki/koji/kojidev.{{ KOJI_DOMAIN }}.crt"
     other_certificates: /etc/pki/koji/koji-ca.crt
     passphrase: kojipass
     owner: activemq

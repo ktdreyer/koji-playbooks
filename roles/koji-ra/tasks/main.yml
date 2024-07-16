@@ -22,7 +22,7 @@
     state: present
 
 - name: copy /etc/kojira/kojira.conf
-  copy:
+  template:
     src: files/kojira.conf
     dest: /etc/kojira/kojira.conf
     owner: root

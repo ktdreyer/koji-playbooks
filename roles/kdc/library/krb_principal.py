@@ -59,7 +59,7 @@ EXAMPLES = '''
 
 def kadmin(query):
     """ Call "kadmin.local -q" with this query. """
-    cmd = ('/usr/sbin/kadmin.local', '-q', query)
+    cmd = tuple(['/usr/sbin/kadmin.local']) + tuple(query.split())
     output = subprocess.check_output(cmd, stderr=subprocess.STDOUT)
     if PY2:
         return output
